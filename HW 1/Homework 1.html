@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: Verdana;font-size: 12pt;color: #494c4e;">
+<html><head></head><body><h1>Homework 1: Primal Rage</h1>
+<p>Due: September 3 by 1:00 PM.</p>
+<p></p>
+<p>Write an F# program that asks the user to input an integer, then decides if that integer is prime and prints a message accordingly. To determine if x is prime, see if any of the integers 2, 3, 4, ... are divisors of x; if they are, x is not prime.</p>
+<p>You will need to use mutable variables for this task, along with a while loop and if statement(s). Please review the Intro.fs file for syntax.</p>
+<p>To read an input, start your program like this:</p>
+<p><code>open System&nbsp;<br>let x = Console.ReadLine() |&gt; int</code></p>
+<p>We'll learn the |&gt; syntax later. This is equivalent to int(input()) in Python, scanner.nextInt() in Java, etc.</p>
+<p>Your implementation must be correct and&nbsp;<strong>efficient</strong>. In particular:</p>
+<ul>
+<li>You must stop looping the moment you know the integer is not prime.</li>
+<li>You must&nbsp;<strong>not</strong> test x to see if 4, 6, 8, 10, ... are divisors. If 2 is not a divisor, then no even integer will be a divisor.</li>
+<li>You must stop the loop once you have exceeded the largest integer that could be a divisor of x, which is the&nbsp;<strong>sqrt</strong> of x.&nbsp;</li>
+<li>You must do division, modulo, etc. using&nbsp;<strong>int</strong> data types, not&nbsp;<strong>float</strong>. At some point you will be tempted to make x a float.&nbsp;<strong>Don't do it</strong>. Use casting operators like (float x) if you are getting errors about comparing two different variable types.</li>
+</ul>
+<h2>Deliverables</h2>
+<p>Turn in to Dropbox:</p>
+<ul>
+<li>Your .fs source code file.</li>
+</ul></body></html>
+</body>
+</html>

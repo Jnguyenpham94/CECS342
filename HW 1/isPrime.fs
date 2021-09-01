@@ -11,12 +11,12 @@ if x % 2 = 0 then
     printfn "%d is even so NOT PRIME" x
 else
     let mutable i = 1 //all even numbers are prime so start at first non-prime int
-    while i < x || stop <> false do
-        if i > sqrt y then //check for largest int that can be divisor or x
-            stop = true
-            printfn "NOT PRIME"
+    while i < x && stop <> true do
+        if float i > sqrt (float x) then //check for largest int that can be divisor or x
+            stop <- true
+            printfn "%d NOT PRIME" x
         elif x % i = 0 then
-            stop = true
-            printfn "IS PRIME"
+            stop <- true
+            printfn "%d IS PRIME" x
         else
-            i <- i + 2 // <- is for reassignment / mutation iterate 2 values to skip even values
+            i <- i + 2 // iterate 2 values to skip even values

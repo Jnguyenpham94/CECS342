@@ -8,13 +8,11 @@ let x = Console.ReadLine() |> int
 let mutable stop = false
 
 if x % 2 = 0 then
-    printfn "Even so NOT PRIME"
-elif x = 2 then
-    printfn "Is 2 which is PRIME"
+    printfn "%d is even so NOT PRIME" x
 else
-    let mutable i = 1 //all even numbers are not prime so start at first non-prime int
+    let mutable i = 1 //all even numbers are prime so start at first non-prime int
     while i < x || stop <> false do
-        if i > sqrt x then
+        if i > sqrt y then //check for largest int that can be divisor or x
             stop = true
             printfn "NOT PRIME"
         elif x % i = 0 then

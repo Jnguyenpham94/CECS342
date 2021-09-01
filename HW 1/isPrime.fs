@@ -16,6 +16,9 @@ else
     while i < x || stop <> false do
         if i > sqrt x then
             stop = true
-        if x % i = 0 then
+            printfn "NOT PRIME"
+        elif x % i = 0 then
             stop = true
-        i <- i + 2 // <- is for reassignment / mutation
+            printfn "IS PRIME"
+        else
+            i <- i + 2 // <- is for reassignment / mutation iterate 2 values to skip even values

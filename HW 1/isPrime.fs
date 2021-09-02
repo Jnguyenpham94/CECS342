@@ -16,7 +16,9 @@ else
             stop <- true
             printfn "%d NOT PRIME" x
         elif x % i = 0 then
-            stop <- true
-            printfn "%d IS PRIME" x
+            stop <- true//TODO: need to get this output cases done
+            printfn "%d is NOT PRIME" x
         else
-            i <- i + 2 // iterate 2 values to skip even values
+            stop <- true
+            printfn "%d is PRIME" x
+        i <- i + 2 // iterate 2 values to skip even values

@@ -13,14 +13,16 @@ if x % 2 = 0 then
 elif x <= 1 then
     printfn "%d is NOT PRIME" x
 else
-    let mutable i = 3 //all even numbers are prime so start at first non-prime int after 1
+    let mutable i = 1 //all even numbers are prime so start at first non-prime int after 1
     while i < x && stop <> true do
         if float i >= sqrt (float x) then //check for largest int that can be divisor of x
             stop <- true //if greater NOT PRIME
         elif x % i = 0 then
             stop <- true
+            found <- true
         else
             i <- i + 2 // iterate 2 values to skip even values
+    
     if found = true then
         printfn "%d is PRIME" x
     else

@@ -1,0 +1,4 @@
+open System
+
+let placeTarget () = 
+    ()

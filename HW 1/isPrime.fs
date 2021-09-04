@@ -6,7 +6,7 @@ printfn "Input a value to check if prime: "
 let x = Console.ReadLine() |> int
 //boolean to stop looping when divisor is found or just to stop while loop for special cases
 let mutable stop = false
-let mutable found = false //if prime F otherwise stays T
+let mutable found = false //if prime F otherwise NOT T
 
 if x % 2 = 0 then
     printfn "%d is even so NOT PRIME" x
@@ -23,6 +23,7 @@ else
         else
             i <- i + 2 // iterate 2 values to skip even values
     
+    //print statements for result of number
     if found = true then
         printfn "%d is NOT PRIME" x
     else

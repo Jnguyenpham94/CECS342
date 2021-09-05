@@ -7,11 +7,12 @@ open System
 
 // returns float value 0 - 1000 m inclusive.
 let placeTarget = 
-    let mutable rand = (new Random()).NextDouble() * 1000.0
+    let rand = (new Random()).NextDouble() * 1000.0
     rand
 
+//TODO: getAngle needs some work
 //prompts user to enter angle of fire
-let getAngle  () =
+let getAngle =
     printfn "Enter angle between 0 - 90"
     let mutable amount = Console.ReadLine |> int
     while amount < 0 && amount > 90 do
@@ -19,16 +20,21 @@ let getAngle  () =
         amount <- Console.ReadLine |> int
     float amount
 
+//TODO: getGunpowder I AM HERE!!!!
 //prompts user for an angle to fire cannon
-let getGunpowder () =
-    ()
+let getGunpowder =
+    printfn "Enter positive float: "
+    let amount = Console.ReadLine |> float
+    amount
 
+//TODO: calculateDistance needs some work
 //angle of amount of gunpowder
 //returns horizontal distance of projectile
 //no prints
 let calculateDistance angle gunpowder =
     ()
 
+//TODO: isHit needs some work
 //location of target and distance projectile has moved
 //hit occurs if projectile lands within 1.0 m of target
 //no let and prints allowed

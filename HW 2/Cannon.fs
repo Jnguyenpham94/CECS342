@@ -6,8 +6,8 @@ cannonball falls within 1 meter of the target.
 open System
 
 // returns float value 0 - 1000 m inclusive.
-let placeTarget () = 
-    let rand = (new Random()).NextDouble()
+let placeTarget = 
+    let mutable rand = (new Random()).NextDouble() * 1000.0
     rand
 
 //prompts user to enter angle of fire
@@ -39,5 +39,5 @@ let isHit location distance =
 [<EntryPoint>]
 let main argv =
     printfn "main stuff here"
-
+    let target = placeTarget 
     0

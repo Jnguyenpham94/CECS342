@@ -25,7 +25,7 @@ let getAngle =
 let getGunpowder =
     printfn "Enter positive float: "
     let amount = Console.ReadLine |> float
-    amount
+    abs amount
 
 //TODO: calculateDistance needs some work
 //angle of amount of gunpowder
@@ -46,4 +46,13 @@ let isHit location distance =
 let main argv =
     printfn "main stuff here"
     let target = placeTarget 
+    printfn "distance to target: %f" target
+    let mutable angle = getAngle
+    let mutable powder = getGunpowder
+    let mutable travel = calculateDistance angle powder
+    let mutable hit = isHit target travel
+    while hit = false do
+        angle <- getAngle
+        powder <- getGunpowder
+        travel <- calculateDistance angle powder
     0

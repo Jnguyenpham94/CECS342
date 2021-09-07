@@ -6,13 +6,14 @@ cannonball falls within 1 meter of the target.
 open System
 
 // returns float value 0 - 1000 m inclusive.
-let placeTarget = 
+//multiply rand to get it within 0 - 1000 m
+let placeTarget () = 
     let rand = (new Random()).NextDouble() * 1000.0
     rand
 
 //TODO: getAngle needs some work
 //prompts user to enter angle of fire
-let getAngle =
+let getAngle () =
     printfn "Enter angle between 0 - 90"
     let mutable amount = Console.ReadLine |> int
     while amount < 0 && amount > 90 do
@@ -22,7 +23,7 @@ let getAngle =
 
 //TODO: getGunpowder I AM HERE!!!!
 //prompts user for an angle to fire cannon
-let getGunpowder =
+let getGunpowder () =
     printfn "Enter positive float: "
     let amount = Console.ReadLine |> float
     abs amount
@@ -39,7 +40,10 @@ let calculateDistance angle gunpowder =
 //hit occurs if projectile lands within 1.0 m of target
 //no let and prints allowed
 let isHit location distance =
-    ()
+    if location - distance <= 1 && location - distance >= 0 then
+        true
+    else
+        false
 
 //main
 [<EntryPoint>]
@@ -47,8 +51,8 @@ let main argv =
     printfn "main stuff here"
     let target = placeTarget 
     printfn "distance to target: %f" target
-    let mutable angle = getAngle
-    let mutable powder = getGunpowder
+    let mutable angle = getAngle ()
+    let mutable powder = getGunpowder ()
     let mutable travel = calculateDistance angle powder
     let mutable hit = isHit target travel
     while hit = false do

@@ -32,8 +32,11 @@ let getGunpowder () =
 //angle of amount of gunpowder
 //returns horizontal distance of projectile
 //no prints
+//distance formula use: Sin(2theta)v**2/g
+//1 deg * pi/180 = 0.01745 rad
 let calculateDistance angle gunpowder =
-    let initVel = 30
+    let v = 30
+    let g = 9.81
     initVel
 
 //TODO: isHit needs some work

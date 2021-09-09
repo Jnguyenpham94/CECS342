@@ -29,15 +29,18 @@ let getGunpowder () =
     abs amount //abs the amount in case someone inputs negative
 
 //TODO: calculateDistance needs some work
-//angle of amount of gunpowder
+//angle in degrees
+//amount of gunpowder in kg 
 //returns horizontal distance of projectile
 //no prints
-//distance formula use: Sin(2theta)v**2/g
-//1 deg * pi/180 = 0.01745 rad
+//projectile distance formula on flat surface used: Sin(2theta)v**2/g
+//1 deg * pi/180 = 0.01745 rad or 1 deg * pi/180 deg
 let calculateDistance angle gunpowder =
-    let v = 30
-    let g = 9.81
-    initVel
+    let v = 30.0 * gunpowder //initial velocity
+    let theta = angle * (Math.PI/180.0)
+    let g = 9.81 //gravity accel
+    let distance = (v**2/g)*Math.Sin(2*theta)
+    distance
 
 //TODO: isHit needs some work
 //location of target and distance projectile has moved

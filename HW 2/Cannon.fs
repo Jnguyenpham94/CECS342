@@ -6,7 +6,7 @@ cannonball falls within 1 meter of the target.
 open System
 
 // returns float value 0 - 1000 m inclusive.
-//multiply rand to get it within 0 - 1000 m
+//multiply rand to get default 0.0 - 1.0 to 0.0 - 1000.0 m
 let placeTarget () = 
     let rand = (new Random()).NextDouble() * 1000.0
     rand
@@ -14,17 +14,17 @@ let placeTarget () =
 
 //prompts user to enter angle of fire
 let getAngle () =
-    printfn "Enter angle between 0 - 90"
+    printfn "Enter angle between 0 - 90: "
     let mutable amount = Console.ReadLine() |> int
     while amount < 0 && amount > 90 do
-        printfn "Angle is out of bounds. Enter angle between 0 - 90"
+        printfn "Angle is out of bounds. Enter angle between 0 - 90: "
         amount <- Console.ReadLine() |> int
     float amount
 
 
 //prompts user for amount of gunpowder in kg to fire cannon
 let getGunpowder () =
-    printfn "Enter positive float: "
+    printfn "Enter positive float for gunpowder: "
     let amount = Console.ReadLine() |> float
     abs amount //abs the amount in case someone inputs negative
 
@@ -32,7 +32,7 @@ let getGunpowder () =
 //angle in degrees
 //amount of gunpowder in kg 
 //returns horizontal distance of projectile
-//no prints
+//no prints allowed
 //projectile distance formula on flat surface used: Sin(2theta)v**2/g
 //1 deg * pi/180 = 0.01745 rad or 1 deg * pi/180 deg
 let calculateDistance angle gunpowder =
@@ -46,14 +46,15 @@ let calculateDistance angle gunpowder =
 //hit occurs if projectile lands within 1.0 m of target
 //no let and prints allowed
 let isHit location distance =
-    if location - distance <= 1 && location - distance >= 0 then
+    if location - distance <= 1.0 && location - distance >= 0.0 then
         true
     else
         false
 
 //main
 [<EntryPoint>]
-let main argv =
+let main args =
+    printfn "GAME START!"
     let mutable shots = 0 //keeps track of how many shots fired
     let target = placeTarget()
     printfn "distance to target: %f" target
@@ -69,11 +70,12 @@ let main argv =
             angle <- getAngle ()
             powder <- getGunpowder ()
             travel <- calculateDistance angle powder
+            hit <- true
             shots <- shots + 1
-            if isHit = true then
+            if hit = true then
                 printfn "You have hit the Target. YOU WIN!!!"
                 printfn "It took %d shots" shots
             else
-                printfn "You are %f off the target" target-travel
+                printfn "You are %f off the target" 4.0//target-travel
                 printfn "It took %d shots" shots
     0

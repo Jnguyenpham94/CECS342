@@ -11,7 +11,7 @@ let placeTarget () =
     let rand = (new Random()).NextDouble() * 1000.0
     rand
 
-//TODO: getAngle needs some work
+
 //prompts user to enter angle of fire
 let getAngle () =
     printfn "Enter angle between 0 - 90"
@@ -21,14 +21,14 @@ let getAngle () =
         amount <- Console.ReadLine() |> int
     float amount
 
-//TODO: getGunpowder I AM HERE!!!!
+
 //prompts user for amount of gunpowder in kg to fire cannon
 let getGunpowder () =
     printfn "Enter positive float: "
     let amount = Console.ReadLine() |> float
     abs amount //abs the amount in case someone inputs negative
 
-//TODO: calculateDistance needs some work
+
 //angle in degrees
 //amount of gunpowder in kg 
 //returns horizontal distance of projectile
@@ -39,10 +39,9 @@ let calculateDistance angle gunpowder =
     let v = 30.0 * gunpowder //initial velocity
     let theta = angle * (Math.PI/180.0)
     let g = 9.81 //gravity accel
-    let distance = (v**2/g)*Math.Sin(2*theta)
+    let distance = (v**2.0/g)*Math.Sin(2.0*theta)
     distance
 
-//TODO: isHit needs some work
 //location of target and distance projectile has moved
 //hit occurs if projectile lands within 1.0 m of target
 //no let and prints allowed
@@ -55,15 +54,26 @@ let isHit location distance =
 //main
 [<EntryPoint>]
 let main argv =
-    printfn "main stuff here"
+    let mutable shots = 0 //keeps track of how many shots fired
     let target = placeTarget()
     printfn "distance to target: %f" target
     let mutable angle = getAngle ()
     let mutable powder = getGunpowder ()
     let mutable travel = calculateDistance angle powder
     let mutable hit = isHit target travel
-    while hit = false do
-        angle <- getAngle ()
-        powder <- getGunpowder ()
-        travel <- calculateDistance angle powder
+    shots <- shots + 1
+    if hit = true then
+        printfn "WOW got a hit on the first try!!!"
+    else
+        while hit = false do
+            angle <- getAngle ()
+            powder <- getGunpowder ()
+            travel <- calculateDistance angle powder
+            shots <- shots + 1
+            if isHit = true then
+                printfn "You have hit the Target. YOU WIN!!!"
+                printfn "It took %d shots" shots
+            else
+                printfn "You are %f off the target" target-travel
+                printfn "It took %d shots" shots
     0

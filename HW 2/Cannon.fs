@@ -1,4 +1,4 @@
-(* text-based game in which the player attempts to shoot cannonballs at a target that is some
+﻿(* text-based game in which the player attempts to shoot cannonballs at a target that is some
 distance away. The player repeatedly enters an angle to fire the cannon at and an amount of gunpowder
 to use. The game calculates how far the cannonball will fly under those parameters and continues until the
 cannonball falls within 1 meter of the target. 
@@ -52,7 +52,7 @@ let isHit location distance =
         false
 
 //main
-[<EntryPoint>]
+//[<EntryPoint>]
 let main args =
     printfn "GAME START!"
     let mutable shots = 0 //keeps track of how many shots fired

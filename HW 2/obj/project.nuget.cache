@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "43/Z2lyPiRe5X3YkGCv03TvWYOaqfrL8Rg18j8D/B4Xq+ZjaM5qLxXSu+rUtpoT0LhZWdNgBa0RKohALHwf0JQ==",
+  "success": false,
+  "projectFilePath": "C:\\Users\\nguye\\Documents\\GitHub\\CECS342\\HW 2\\test.fsproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1101",
+      "level": "Error",
+      "message": "Unable to find package FSharp.Core. No packages exist with this id in source(s): Microsoft Visual Studio Offline Packages",
+      "libraryId": "FSharp.Core",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
+}

@@ -15,11 +15,11 @@ let placeTarget () =
 //prompts user to enter angle of fire
 let getAngle () =
     printfn "Enter angle between 0 - 90: "
-    let mutable amount = Console.ReadLine() |> int
+    let mutable amount = Console.ReadLine() |> float
     while amount < 0 && amount > 90 do
         printfn "Angle is out of bounds. Enter angle between 0 - 90: "
-        amount <- Console.ReadLine() |> int
-    float amount
+        amount <- Console.ReadLine() |> float
+    amount
 
 
 //prompts user for amount of gunpowder in kg to fire cannon
@@ -46,7 +46,7 @@ let calculateDistance angle gunpowder =
 //hit occurs if projectile lands within 1.0 m of target
 //no let and prints allowed
 let isHit location distance =
-    if location - distance <= 1.0 && location - distance >= 0.0 then
+    if location - distance <= 1.0 && location - distance >= -1.0 then
         true
     else
         false
@@ -54,8 +54,11 @@ let isHit location distance =
 //main
 [<EntryPoint>]
 let main args =
+    printfn "A negative off means you overshot the target"
+    printfn "A positive off means your shot was short of the target"
     printfn "GAME START!"
     let mutable shots = 0 //keeps track of how many shots fired
+    let mutable diff = 0.0
     let target = placeTarget()
     printfn "distance to target: %f" target
     let mutable angle = getAngle ()
@@ -66,16 +69,19 @@ let main args =
     if hit = true then
         printfn "WOW got a hit on the first try!!!"
     else
+        diff <- target-travel
+        printfn "You are %f off the target" diff
         while hit = false do
             angle <- getAngle ()
             powder <- getGunpowder ()
             travel <- calculateDistance angle powder
-            hit <- true
+            hit <- isHit target travel
             shots <- shots + 1
             if hit = true then
                 printfn "You have hit the Target. YOU WIN!!!"
-                printfn "It took %d shots" shots
+                printfn "%d shots taken" shots
             else
-                printfn "You are %f off the target" 4.0//target-travel
-                printfn "It took %d shots" shots
+                diff <- target-travel
+                printfn "You are %f off the target" diff
+                printfn "%d shots taken" shots
     0

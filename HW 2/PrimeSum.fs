@@ -1,7 +1,6 @@
 (*
 The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
 Find the sum of all the primes below two million.
-ANSWER SHOULD BE: 142,913,828,922
 *)
 
 //n is value to check if prime
@@ -11,10 +10,8 @@ let isPrime n =
     let mutable found = false //if prime F otherwise NOT T
     
     if n % 2 = 0 then
-        //printfn "%d is even so NOT PRIME" x
         false
     elif n <= 1 then
-        //printfn "%d is NOT PRIME" x
         false
     else
         let mutable i = 3 //all even numbers are prime so start at first odd int after
@@ -29,10 +26,8 @@ let isPrime n =
         
         //print statements for result of number
         if found = true then
-            //printfn "%d is NOT PRIME" x
             false
         else
-            //printfn "%d is PRIME" x
             true
 
 

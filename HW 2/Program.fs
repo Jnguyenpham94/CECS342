@@ -1,6 +1,17 @@
-﻿// Learn more about F# at http://fsharp.org
-
+﻿
 open System
+
+type VendingMachine = {name: string; inventory: int; price: float}
+
+//no prints in functions below and no input from user only from parameters
+let machineDescription machine =
+    ()
+
+let canPurchase machine count dollars =
+    ()
+
+let purchase machine count dollars =
+    ()
 
 [<EntryPoint>]
 let main argv =

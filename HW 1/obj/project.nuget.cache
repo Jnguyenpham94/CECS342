@@ -1,18 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Fn3Trh08PoJH8u9IhPLNgNE9eR8HEXw9ZxHbk2xLxv5KBByVi9msLjRlg2VCHxq1bNbgcx2r4LBGhlHnZ901yw==",
-  "success": false,
-  "projectFilePath": "C:\\Users\\nguye\\Documents\\GitHub\\CECS342\\ConsoleApp1\\HW 1.fsproj",
-  "expectedPackageFiles": [],
-  "logs": [
-    {
-      "code": "NU1101",
-      "level": "Error",
-      "message": "Unable to find package FSharp.Core. No packages exist with this id in source(s): Microsoft Visual Studio Offline Packages",
-      "libraryId": "FSharp.Core",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    }
-  ]
+  "dgSpecHash": "6+SEv+qlnjR24BPF4gHgXbFCyD8DvThbOJs4CrHcJpjcTcMkB0W3lD/7yh18Qnzn9QWAsV8x5E1lOPMQqX0DiQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\nguye\\Documents\\GitHub\\CECS342\\HW 1\\HW 1.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\nguye\\.nuget\\packages\\fsharp.core\\5.0.0\\fsharp.core.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
 }

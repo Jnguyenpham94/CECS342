@@ -24,3 +24,4 @@ C:\Users\nguye\Documents\GitHub\CECS342\HW 2\obj\Debug\netcoreapp3.1\HW 2.fsproj
 C:\Users\nguye\Documents\GitHub\CECS342\HW 2\obj\Debug\netcoreapp3.1\HW 2.dll
 C:\Users\nguye\Documents\GitHub\CECS342\HW 2\obj\Debug\netcoreapp3.1\HW 2.pdb
 C:\Users\nguye\Documents\GitHub\CECS342\HW 2\obj\Debug\netcoreapp3.1\HW 2.genruntimeconfig.cache
+C:\Users\nguye\Documents\GitHub\CECS342\HW 2\obj\Debug\netcoreapp3.1\HW 2.fsproj.AssemblyReference.cache

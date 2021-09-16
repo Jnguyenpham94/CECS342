@@ -8,7 +8,9 @@ returns string
 NO IF STATEMENTS ALLOWED
 *)
 let machineDescription machine =
-    ()
+    match machine with
+    | {inventory = 0} -> printfn "An empty %s machine" machine.name
+    | _ -> printfn "A machine with %i %s available for $%.2f each" machine.inventory machine.name machine.price
 
 (* returns true if person with dollars amount is able to purchase count items from given machine
 NEEDS TO BE DONE IN 1 STATEMENT!!!
@@ -24,5 +26,8 @@ let purchase machine count dollars =
 
 [<EntryPoint>]
 let main argv =
-    printfn "Hello World from F#!"
+    let Snacks = {name = "chips"; inventory = 10; price = 1.00}
+    let Snacks2 = {name = "soda"; inventory = 0; price = 1.50}
+    let result = machineDescription Snacks2
+    printfn "%O" result
     0 // return an integer exit code

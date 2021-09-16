@@ -18,7 +18,6 @@ C:\Users\nguye\Documents\GitHub\CECS342\HW 2\bin\Debug\netcoreapp3.1\ru\FSharp.C
 C:\Users\nguye\Documents\GitHub\CECS342\HW 2\bin\Debug\netcoreapp3.1\tr\FSharp.Core.resources.dll
 C:\Users\nguye\Documents\GitHub\CECS342\HW 2\bin\Debug\netcoreapp3.1\zh-Hans\FSharp.Core.resources.dll
 C:\Users\nguye\Documents\GitHub\CECS342\HW 2\bin\Debug\netcoreapp3.1\zh-Hant\FSharp.Core.resources.dll
-C:\Users\nguye\Documents\GitHub\CECS342\HW 2\obj\Debug\netcoreapp3.1\HW 2.fsproj.AssemblyReference.cache
 C:\Users\nguye\Documents\GitHub\CECS342\HW 2\obj\Debug\netcoreapp3.1\HW 2.AssemblyInfoInputs.cache
 C:\Users\nguye\Documents\GitHub\CECS342\HW 2\obj\Debug\netcoreapp3.1\HW 2.AssemblyInfo.fs
 C:\Users\nguye\Documents\GitHub\CECS342\HW 2\obj\Debug\netcoreapp3.1\HW 2.fsproj.CopyComplete

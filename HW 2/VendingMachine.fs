@@ -22,20 +22,33 @@ let canPurchase machine count dollars =
 returns tuple
 *)
 let purchase machine count dollars =
-    ()
+    let purchase = canPurchase machine count dollars
+    let dup = {machine with inventory = machine.inventory - count}
+    if purchase = true then
+        let result = (dollars - float count*dollars, dup)
+        result
+    else
+        let result = (dollars, machine)
+        result
 
 [<EntryPoint>]
 let main argv =
+    //VendingMachine record instances
     let Snacks = {name = "chips"; inventory = 10; price = 1.00}
     let Snacks2 = {name = "soda"; inventory = 0; price = 1.50}//EMPTY inventory
+    let Snacks3 = {name = "water"; inventory = 4; price = 1.50}
     let result = machineDescription Snacks2
     printfn "%O" result
-    //how many of something want to buy
+    //how many of something person wants to buy
     let count = 10
     let count2 = 0
-    //how much many person has
+    let count3 = 4
+    //how much many person has test values
     let wallet = 10.00
-    let wallet2 = 0.0
+    let wallet2 = 0.00
+    let wallet3 = 2.00
     let purchaseable = canPurchase Snacks count wallet
     printfn "Buy T/F: %b" purchaseable
+    let buy = purchase Snacks count wallet2
+    printfn "Your change is %O" buy
     0 // return an integer exit code

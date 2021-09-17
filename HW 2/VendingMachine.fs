@@ -25,9 +25,11 @@ let purchase machine count dollars =
     let purchase = canPurchase machine count dollars
     let dup = {machine with inventory = machine.inventory - count}
     if purchase = true then
-        let result = (dollars - float count*dollars, dup)
+        printfn "Purchase Made"
+        let result = (dollars - float count*machine.price, dup)
         result
     else
+        printfn "Cannot Purchase"
         let result = (dollars, machine)
         result
 
@@ -36,10 +38,10 @@ let main argv =
     //VendingMachine record instances
     let Snacks = {name = "chips"; inventory = 10; price = 1.00}
     let Snacks2 = {name = "soda"; inventory = 0; price = 1.50}//EMPTY inventory
-    let Snacks3 = {name = "water"; inventory = 4; price = 1.50}
-    let result = machineDescription Snacks2
+    let Snacks3 = {name = "Fiji Water"; inventory = 4; price = 5.00}//expensive water lol
+    let result = machineDescription Snacks3
     printfn "%O" result
-    //how many of something person wants to buy
+    //how many of something person wants to buy test values
     let count = 10
     let count2 = 0
     let count3 = 4
@@ -49,6 +51,6 @@ let main argv =
     let wallet3 = 2.00
     let purchaseable = canPurchase Snacks count wallet
     printfn "Buy T/F: %b" purchaseable
-    let buy = purchase Snacks count wallet2
+    let buy = purchase Snacks count3 wallet
     printfn "Your change is %O" buy
     0 // return an integer exit code

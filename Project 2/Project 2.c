@@ -22,9 +22,13 @@ void my_initialize_heap(int size) {
 }
 
 void* my_alloc(int size) {
-    // TODO: if size is not a multiple of POINTER_SIZE, you
+    // if size is not a multiple of POINTER_SIZE, you
     // must round it *UP* to the next multiple.
-
+    if (size % POINTER_SIZE != 0)
+    {
+        //round to nearest positive multiple formula
+        size = size + POINTER_SIZE - (size % POINTER_SIZE); 
+    }
 
 
     // From now on, we will assume that "size" has been adjusted

@@ -75,18 +75,24 @@ void* my_alloc(int size) {
 
     // The four possible answers to a) and b) will give you four branches
     // to code.
-
+    //TODO: if statemetents
     // Branch 1: we are not splitting the head node.
-    // if (....) 
+    if () {
+
+    }
 
     // Branch 2: we are splitting the head node.
-    // else if (....)
+    else if () {
+
+    }
 
     // Branch 3: we are not splitting an interior node.
-    // else if (....)
+    else if () {
+
+    }
 
     // Branch 4: we are splitting an interior node.
-    // else {}
+    else {}
 
     // To reassign chosen_block's next_block pointer, just give it a new value.
     // FOR EXAMPLE, to make chosen_block point AROUND the block that follows 

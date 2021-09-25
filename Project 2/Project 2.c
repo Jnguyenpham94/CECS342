@@ -77,23 +77,32 @@ void* my_alloc(int size) {
     // to code.
     //TODO: if statemetents
     // Branch 1: we are not splitting the head node.
-    if () {
-
+    if (chosen_block->block_size - size <= size) {
+        struct Block* new_block = (struct Block*)((char*)chosen_block->next_block + size);
+        new_block->block_size = chosen_block->block_size - size - POINTER_SIZE;
+        new_block->next_block = free_head->next_block;
+        free_head->block_size = free_head->block_size - sizeof(chosen_block);
+        free_head->next_block = NULL;
     }
 
     // Branch 2: we are splitting the head node.
-    else if () {
-
+    else if (chosen_block->block_size - size >= size) {
+        struct Block* new_block = (struct Block*)((char*)chosen_block->next_block + size);
+        new_block->block_size = chosen_block->block_size - size - POINTER_SIZE;
+        new_block->next_block = free_head->next_block;
+        free_head->block_size = free_head->block_size - sizeof(chosen_block);
+        free_head->next_block = NULL;
     }
 
     // Branch 3: we are not splitting an interior node.
-    else if () {
+    else if (chosen_block == 0) {
 
     }
 
     // Branch 4: we are splitting an interior node.
     else {}
 
+    return OVERHEAD_SIZE + chosen_block->block_size;
     // To reassign chosen_block's next_block pointer, just give it a new value.
     // FOR EXAMPLE, to make chosen_block point AROUND the block that follows 
     // (you don't necessarily actually want to do this, just an example)
@@ -132,8 +141,8 @@ void main() {
     // "1. Allocate an int; print the address of the returned pointer. 
     // Free the int, then allocate another int and print its address.
     // The addresses should be the same."
-
     printf("TEST 1\n");
+    my_initialize_heap(100);
     int* a = my_alloc(sizeof(int)); // gimme an int.
     printf("a is at address %p\n", a); // %p prints the memory address of a pointer in hexadecimal.
     my_free(a);

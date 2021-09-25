@@ -1,5 +1,5 @@
 ﻿  Project 2.c
-C:\Users\nguye\Documents\GitHub\CECS342\Project 2\Project 2.c(130,11): warning C4013: 'printf' undefined; assuming extern returning int
-C:\Users\nguye\Documents\GitHub\CECS342\Project 2\Project 2.c(114): warning C4715: 'my_alloc': not all control paths return a value
+C:\Users\nguye\Documents\GitHub\CECS342\Project 2\Project 2.c(105,52): warning C4047: 'return': 'void *' differs in levels of indirection from 'int'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 2\Project 2.c(144,11): warning C4013: 'printf' undefined; assuming extern returning int
 Project 2.obj : error LNK2019: unresolved external symbol _printf referenced in function _main
 C:\Users\nguye\Documents\GitHub\CECS342\Project 2\Debug\Project 2.exe : fatal error LNK1120: 1 unresolved externals

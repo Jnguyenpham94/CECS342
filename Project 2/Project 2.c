@@ -46,7 +46,7 @@ void* my_alloc(int size) {
 
     // 2. Start the pointer at free_head.
     temp = free_head;
-
+    //int diff = 0;
     // 3. Perform the "walk through a linked list" logic that you
     // learned in 274.
     while (temp != NULL) { // keep going until we walk off the end of the list.
@@ -60,6 +60,7 @@ void* my_alloc(int size) {
             // this is FIRST FIT!
             if (temp->block_size >= size && (chosen_block==NULL || temp->block_size < chosen_block->block_size)) {//adjust chosen_block to next smallest size possible block
                 chosen_block = temp;
+                //diff = chosen_block->block_size - size;
                 if (chosen_block->block_size == size)//exactly equals case
                 {
                     break;
@@ -85,34 +86,39 @@ void* my_alloc(int size) {
     // to code.
     //TODO: if statemetents
     // Branch 1: we are not splitting the head node.
-    if (chosen_block->block_size - size <= size) {
-        struct Block* new_block = (struct Block*)((char*)chosen_block->next_block + size);
-        new_block->block_size = chosen_block->block_size - size - POINTER_SIZE;
-        new_block->next_block = NULL;
-        free_head->block_size = free_head->block_size - sizeof(new_block);
-        free_head->next_block = new_block;
-    }
-
-    // Branch 2: we are splitting the head node.
-    else if (chosen_block->block_size - size >= size) {
-        struct Block* new_block = (struct Block*)((char*)chosen_block->next_block + size);
-        new_block->block_size = chosen_block->block_size - size - POINTER_SIZE;
+    if (chosen_block->block_size >= size) {
+        struct Block* new_block = (struct Block*)((char*)chosen_block->block_size + size);
+        new_block->block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
         new_block->next_block = free_head->next_block;
         free_head->block_size = free_head->block_size - sizeof(new_block);
         free_head->next_block = NULL;
     }
-
-    // Branch 3: we are not splitting an interior node.
-    else if (chosen_block == 0) {
-        struct Block* new_block = (struct Block*)((char*)chosen_block->next_block + size);
+    // Branch 2: we are splitting the head node.
+    else if (chosen_block->block_size >= size && chosen_block->block_size - size >= OVERHEAD_SIZE+ POINTER_SIZE) {
+        struct Block* new_block = (struct Block*)((char*)chosen_block->block_size + size);
+        new_block->block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
+        new_block->next_block = free_head->next_block;
+        free_head->block_size = free_head->block_size - sizeof(new_block);
+        free_head->next_block = new_block->next_block->next_block;
     }
-
+    // Branch 3: we are not splitting an interior node.
+    else if (chosen_block == free_head) {
+        struct Block* new_block = (struct Block*)((char*)chosen_block->block_size + size);
+        new_block->block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
+        new_block->next_block = free_head->next_block;
+        free_head->block_size = free_head->block_size - sizeof(new_block);
+        free_head->next_block = new_block->next_block->next_block;
+    }
     // Branch 4: we are splitting an interior node.
     else {
-        struct Block* new_block = (struct Block*)((char*)chosen_block->next_block + size);
+        struct Block* new_block = (struct Block*)((char*)chosen_block->block_size + size);
+        new_block->block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
+        new_block->next_block = free_head->next_block;
+        free_head->block_size = free_head->block_size - sizeof(new_block);
+        free_head->next_block = new_block->next_block->next_block;
     }
 
-    return chosen_block->block_size;
+    return chosen_block->block_size + sizeof(OVERHEAD_SIZE);
     // To reassign chosen_block's next_block pointer, just give it a new value.
     // FOR EXAMPLE, to make chosen_block point AROUND the block that follows 
     // (you don't necessarily actually want to do this, just an example)
@@ -141,9 +147,14 @@ void* my_alloc(int size) {
 void my_free(void* data) {
     // TODO: initialize a local Block pointer by pointing it 
     // exactly "OVERHEAD_SIZE" bytes to the *left* of the data pointer.
-
+    struct Block* rem_block = (struct Block*)((char*)data - OVERHEAD_SIZE);
+    struct Block* temp = free_head;
+    if (temp != NULL && temp->block_size == data) {
+        temp = temp->next_block;
+    }
     // Then return that block to the free list and change the
     // free_head variable as needed.
+    rem_block->next_block = free_head;
 }
 
 void main() {

@@ -1,5 +1,6 @@
 ﻿  Project 2.c
-C:\Users\nguye\Documents\GitHub\CECS342\Project 2\Project 2.c(105,52): warning C4047: 'return': 'void *' differs in levels of indirection from 'int'
-C:\Users\nguye\Documents\GitHub\CECS342\Project 2\Project 2.c(144,11): warning C4013: 'printf' undefined; assuming extern returning int
+C:\Users\nguye\Documents\GitHub\CECS342\Project 2\Project 2.c(121,60): warning C4047: 'return': 'void *' differs in levels of indirection from 'unsigned int'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 2\Project 2.c(152,49): warning C4047: '==': 'int' differs in levels of indirection from 'void *'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 2\Project 2.c(165,11): warning C4013: 'printf' undefined; assuming extern returning int
 Project 2.obj : error LNK2019: unresolved external symbol _printf referenced in function _main
 C:\Users\nguye\Documents\GitHub\CECS342\Project 2\Debug\Project 2.exe : fatal error LNK1120: 1 unresolved externals

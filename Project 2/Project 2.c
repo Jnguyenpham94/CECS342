@@ -19,6 +19,7 @@ void my_initialize_heap(int size) {
     // The -> operator accesses the field of an object that we have
     // a pointer to.
     free_head->next_block = NULL;
+    free_head->block_size = size;
 }
 
 void* my_alloc(int size) {
@@ -39,7 +40,7 @@ void* my_alloc(int size) {
     // to fit this request size.
 
     // 1. Declare a temporary pointer to use for the "walking". A second
-    // pointer will point to the block we choose in the end.
+    // pointer will point to the block we choose in the end. AKA best fitting block
     struct Block* temp;
     struct Block* chosen_block = NULL;
 
@@ -56,10 +57,17 @@ void* my_alloc(int size) {
             // to break on the next line. You may need to make a copy
             // of temp to remember this block if it's the best fit that
             // you've found so far!
-
-            chosen_block = temp; // this is FIRST FIT!
-            break;
+            // this is FIRST FIT!
+            if (temp->block_size >= size && (chosen_block==NULL || temp->block_size < chosen_block->block_size)) {//adjust chosen_block to next smallest size possible block
+                chosen_block = temp;
+                if (chosen_block->block_size == size)//exactly equals case
+                {
+                    break;
+                }
+            }
+            temp = temp->next_block;//walk temp forward
         }
+
     }
 
     // 4. If we get here and chosen_block is NULL, that means we could not
@@ -80,9 +88,9 @@ void* my_alloc(int size) {
     if (chosen_block->block_size - size <= size) {
         struct Block* new_block = (struct Block*)((char*)chosen_block->next_block + size);
         new_block->block_size = chosen_block->block_size - size - POINTER_SIZE;
-        new_block->next_block = free_head->next_block;
-        free_head->block_size = free_head->block_size - sizeof(chosen_block);
-        free_head->next_block = NULL;
+        new_block->next_block = NULL;
+        free_head->block_size = free_head->block_size - sizeof(new_block);
+        free_head->next_block = new_block;
     }
 
     // Branch 2: we are splitting the head node.
@@ -90,19 +98,21 @@ void* my_alloc(int size) {
         struct Block* new_block = (struct Block*)((char*)chosen_block->next_block + size);
         new_block->block_size = chosen_block->block_size - size - POINTER_SIZE;
         new_block->next_block = free_head->next_block;
-        free_head->block_size = free_head->block_size - sizeof(chosen_block);
+        free_head->block_size = free_head->block_size - sizeof(new_block);
         free_head->next_block = NULL;
     }
 
     // Branch 3: we are not splitting an interior node.
     else if (chosen_block == 0) {
-
+        struct Block* new_block = (struct Block*)((char*)chosen_block->next_block + size);
     }
 
     // Branch 4: we are splitting an interior node.
-    else {}
+    else {
+        struct Block* new_block = (struct Block*)((char*)chosen_block->next_block + size);
+    }
 
-    return OVERHEAD_SIZE + chosen_block->block_size;
+    return chosen_block->block_size;
     // To reassign chosen_block's next_block pointer, just give it a new value.
     // FOR EXAMPLE, to make chosen_block point AROUND the block that follows 
     // (you don't necessarily actually want to do this, just an example)

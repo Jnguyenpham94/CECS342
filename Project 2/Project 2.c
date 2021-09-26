@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 struct Block {
     int block_size; // # of bytes in the data section
@@ -162,7 +163,7 @@ void main() {
     // "1. Allocate an int; print the address of the returned pointer. 
     // Free the int, then allocate another int and print its address.
     // The addresses should be the same."
-    printf("TEST 1\n");
+    printf("Test 1 \n");
     my_initialize_heap(100);
     int* a = my_alloc(sizeof(int)); // gimme an int.
     printf("a is at address %p\n", a); // %p prints the memory address of a pointer in hexadecimal.

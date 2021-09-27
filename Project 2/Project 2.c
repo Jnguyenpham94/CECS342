@@ -86,6 +86,7 @@ void* my_alloc(int size) {
     // The four possible answers to a) and b) will give you four branches
     // to code.
     //TODO: if statemetents... WHERE THINGS WENT HORRIBLY WRONG
+    // pointers kept on having errors or affecting each other in confusing ways
     // Branch 1: we are not splitting the head node.
     struct Block new_block;
     if (chosen_block->block_size >= size) {
@@ -153,6 +154,8 @@ void my_free(void* data) {
     // free_head variable as needed.
     //temp->block_size = data;
     //temp->next_block = NULL;
+
+    //readjust free_head values 
     //free_head->block_size = free_head->block_size + temp->block_size;
     //free_head->next_block = temp->next_block;
 }
@@ -162,18 +165,20 @@ void main() {
     // "1. Allocate an int; print the address of the returned pointer. 
     // Free the int, then allocate another int and print its address.
     // The addresses should be the same."
-    printf("Test 1: 1 int + free + 1 int \n");
+    printf("Test 1: 1 int -> free -> 1 int \n");
     my_initialize_heap(100);
     int* a = my_alloc(sizeof(int)); // gimme an int.
     printf("a is at address %p\n", a); // %p prints the memory address of a pointer in hexadecimal.
     my_free(a);
     int* b = my_alloc(sizeof(int));
     printf("b is at address %p\n", b);
+
+    // Make sure they're the same...
     
-    /*  UNTESTED TESTS!!!
+    /*  UNTESTED TESTS: did not get here too many problems with test 1
     printf("Test 2: 2 ints \n");
     my_initialize_heap(100);
-    int* a = my_alloc(sizeof(int)); // gimme an int.
+    int* a = my_alloc(sizeof(int)); 
     int* b = my_alloc(sizeof(int));
     printf("a is at address %p\n", a); // %p prints the memory address of a pointer in hexadecimal.
     printf("b is at address %p\n", b);
@@ -201,7 +206,7 @@ void main() {
     printf("b is at address %p\n", b);
     */
     /*
-    printf("Test 5: 80 element int + 1 int \n");
+    printf("Test 5: 80 element int -> 1 int \n");
     my_initialize_heap(100);
     int arr[80];
     int* a = my_alloc(sizeof(arr)); // gimme an int.
@@ -211,5 +216,4 @@ void main() {
     my_free(arr);
     */
 
-    // Make sure they're the same...
 }

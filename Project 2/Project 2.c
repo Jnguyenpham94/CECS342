@@ -85,11 +85,15 @@ void* my_alloc(int size) {
 
     // The four possible answers to a) and b) will give you four branches
     // to code.
+
     //TODO: if statemetents... WHERE THINGS WENT HORRIBLY WRONG
     // pointers kept on having errors or affecting each other in confusing ways
+    // attempt below without pointers... worked better for me but still not quite right
+
     // Branch 1: we are not splitting the head node.
     struct Block new_block;
     if (chosen_block->block_size >= size) {
+        //new_block = chosen_block;
         new_block.block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
         new_block.next_block = free_head;
         free_head->block_size = free_head->block_size - new_block.block_size;
@@ -146,6 +150,7 @@ void* my_alloc(int size) {
     // See the PDF for the explanation for all the casting.
 }
 
+//confused with implementation
 void my_free(void* data) {
     // TODO: initialize a local Block pointer by pointing it 
     // exactly "OVERHEAD_SIZE" bytes to the *left* of the data pointer.

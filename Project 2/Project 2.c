@@ -85,42 +85,41 @@ void* my_alloc(int size) {
 
     // The four possible answers to a) and b) will give you four branches
     // to code.
-    //TODO: if statements... WHERE THINGS WENT HORRIBLY WRONG
+    //TODO: if statemetents... WHERE THINGS WENT HORRIBLY WRONG
     // Branch 1: we are not splitting the head node.
-    struct Block* new_block;
+    struct Block new_block;
     if (chosen_block->block_size >= size) {
-        new_block = chosen_block;
-        new_block->block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
-        new_block->next_block = free_head;
-        free_head->block_size = free_head->block_size - new_block->block_size;
-        free_head = new_block;
+        new_block.block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
+        new_block.next_block = free_head;
+        free_head->block_size = free_head->block_size - new_block.block_size;
+        //free_head = new_block;
     }
     // Branch 2: we are splitting the head node.
     else if (chosen_block->block_size >= size && chosen_block->block_size - size >= OVERHEAD_SIZE + POINTER_SIZE) {
-        new_block = (struct Block*)((char*)chosen_block->next_block + size);
-        new_block->block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
-        new_block->next_block = free_head->next_block;
-        free_head->block_size = free_head->block_size - new_block->block_size;
-        free_head->next_block = new_block->next_block->next_block;
+        //new_block = (struct Block*)((char*)chosen_block->next_block + size);
+        new_block.block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
+        new_block.next_block = free_head->next_block;
+        free_head->block_size = free_head->block_size - new_block.block_size;
+        free_head->next_block = new_block.next_block->next_block;
     }
     // Branch 3: we are not splitting an interior node.
     else if (chosen_block == free_head) {
-        new_block = chosen_block;
-        new_block->block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
-        new_block->next_block = free_head->next_block;
-        free_head->block_size = free_head->block_size - new_block->block_size;
-        free_head->next_block = new_block->next_block->next_block;
+        //new_block = chosen_block;
+        new_block.block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
+        new_block.next_block = free_head->next_block;
+        free_head->block_size = free_head->block_size - new_block.block_size;
+        free_head->next_block = new_block.next_block->next_block;
     }
     // Branch 4: we are splitting an interior node.
     else {
-        new_block = (struct Block*)((char*)chosen_block->next_block + size);
-        new_block->block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
-        new_block->next_block = free_head->next_block;
-        free_head->block_size = free_head->block_size - new_block->block_size;
-        free_head->next_block = new_block->next_block->next_block;
+        //new_block = (struct Block*)((char*)chosen_block->next_block + size);
+        new_block.block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
+        new_block.next_block = free_head->next_block;
+        free_head->block_size = free_head->block_size - new_block.block_size;
+        free_head->next_block = new_block.next_block->next_block;
     }
 
-    return new_block->block_size;
+    return new_block.block_size;
     // To reassign chosen_block's next_block pointer, just give it a new value.
     // FOR EXAMPLE, to make chosen_block point AROUND the block that follows 
     // (you don't necessarily actually want to do this, just an example)
@@ -154,8 +153,8 @@ void my_free(void* data) {
     // free_head variable as needed.
     //temp->block_size = data;
     //temp->next_block = NULL;
-    free_head->block_size = free_head->block_size + temp->block_size;
-    free_head->next_block = temp->next_block;
+    //free_head->block_size = free_head->block_size + temp->block_size;
+    //free_head->next_block = temp->next_block;
 }
 
 void main() {

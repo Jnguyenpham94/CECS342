@@ -85,7 +85,7 @@ void* my_alloc(int size) {
 
     // The four possible answers to a) and b) will give you four branches
     // to code.
-    //TODO: if statemetents
+    //TODO: if statements... WHERE THINGS WENT HORRIBLY WRONG
     // Branch 1: we are not splitting the head node.
     struct Block* new_block;
     if (chosen_block->block_size >= size) {
@@ -152,8 +152,8 @@ void my_free(void* data) {
     struct Block* temp = ((char*)data - OVERHEAD_SIZE);
     // Then return that block to the free list and change the
     // free_head variable as needed.
-    temp->block_size = data;
-    temp->next_block = NULL;
+    //temp->block_size = data;
+    //temp->next_block = NULL;
     free_head->block_size = free_head->block_size + temp->block_size;
     free_head->next_block = temp->next_block;
 }

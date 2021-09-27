@@ -29,7 +29,7 @@ void* my_alloc(int size) {
     if (size % POINTER_SIZE != 0)
     {
         //round to nearest positive multiple formula
-        size = size + POINTER_SIZE - (size % POINTER_SIZE); 
+        size = size + POINTER_SIZE - (size % POINTER_SIZE);
     }
 
 
@@ -59,7 +59,7 @@ void* my_alloc(int size) {
             // of temp to remember this block if it's the best fit that
             // you've found so far!
             // this is FIRST FIT!
-            if (temp->block_size >= size && (chosen_block==NULL || temp->block_size < chosen_block->block_size)) {//adjust chosen_block to next smallest size possible block
+            if (temp->block_size >= size && (chosen_block == NULL || temp->block_size < chosen_block->block_size)) {//adjust chosen_block to next smallest size possible block
                 chosen_block = temp;
                 //diff = chosen_block->block_size - size;
                 if (chosen_block->block_size == size)//exactly equals case
@@ -87,39 +87,40 @@ void* my_alloc(int size) {
     // to code.
     //TODO: if statemetents
     // Branch 1: we are not splitting the head node.
+    struct Block new_block;
     if (chosen_block->block_size >= size) {
-        struct Block* new_block = chosen_block;
-        new_block->block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
-        new_block->next_block = free_head->next_block;
-        free_head->block_size = free_head->block_size - new_block->block_size;
+        new_block = *chosen_block;
+        new_block.block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
+        new_block.next_block = free_head->next_block;
+        free_head->block_size = free_head->block_size - new_block.block_size;
         free_head->next_block = NULL;
     }
     // Branch 2: we are splitting the head node.
-    else if (chosen_block->block_size >= size && chosen_block->block_size - size >= OVERHEAD_SIZE+ POINTER_SIZE) {
-        struct Block* new_block = (struct Block*)((char*)chosen_block->block_size + size);
-        new_block->block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
-        new_block->next_block = free_head->next_block;
-        free_head->block_size = free_head->block_size - new_block->block_size;
-        free_head->next_block = new_block->next_block->next_block;
+    else if (chosen_block->block_size >= size && chosen_block->block_size - size >= OVERHEAD_SIZE + POINTER_SIZE) {
+        new_block = *(struct Block*)((char*)chosen_block->block_size + size);
+        new_block.block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
+        new_block.next_block = free_head->next_block;
+        free_head->block_size = free_head->block_size - new_block.block_size;
+        free_head->next_block = new_block.next_block->next_block;
     }
     // Branch 3: we are not splitting an interior node.
     else if (chosen_block == free_head) {
-        struct Block* new_block = (struct Block*)((char*)chosen_block->block_size + size);
-        new_block->block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
-        new_block->next_block = free_head->next_block;
-        free_head->block_size = free_head->block_size - new_block->block_size;
-        free_head->next_block = new_block->next_block->next_block;
+        new_block = *(struct Block*)((char*)chosen_block->block_size + size);
+        new_block.block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
+        new_block.next_block = free_head->next_block;
+        free_head->block_size = free_head->block_size - new_block.block_size;
+        free_head->next_block = new_block.next_block->next_block;
     }
     // Branch 4: we are splitting an interior node.
     else {
-        struct Block* new_block = (struct Block*)((char*)chosen_block->block_size + size);
-        new_block->block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
-        new_block->next_block = free_head->next_block;
-        free_head->block_size = free_head->block_size - new_block->block_size;
-        free_head->next_block = new_block->next_block->next_block;
+        new_block = *(struct Block*)((char*)chosen_block->block_size + size);
+        new_block.block_size = size + OVERHEAD_SIZE + POINTER_SIZE;
+        new_block.next_block = free_head->next_block;
+        free_head->block_size = free_head->block_size - new_block.block_size;
+        free_head->next_block = new_block.next_block->next_block;
     }
 
-    return chosen_block->block_size;
+    return new_block.block_size;
     // To reassign chosen_block's next_block pointer, just give it a new value.
     // FOR EXAMPLE, to make chosen_block point AROUND the block that follows 
     // (you don't necessarily actually want to do this, just an example)
@@ -164,12 +165,49 @@ void main() {
     // "1. Allocate an int; print the address of the returned pointer. 
     // Free the int, then allocate another int and print its address.
     // The addresses should be the same."
-    printf("Test 1 \n");
+    printf("Test 1: 1 int + free + 1 int \n");
     my_initialize_heap(100);
     int* a = my_alloc(sizeof(int)); // gimme an int.
     printf("a is at address %p\n", a); // %p prints the memory address of a pointer in hexadecimal.
     my_free(a);
     int* b = my_alloc(sizeof(int));
     printf("b is at address %p\n", b);
+    /*
+    printf("Test 2: 2 ints \n");
+    my_initialize_heap(100);
+    int* a = my_alloc(sizeof(int)); // gimme an int.
+    printf("a is at address %p\n", a); // %p prints the memory address of a pointer in hexadecimal.
+    my_free(a);
+    int* b = my_alloc(sizeof(int));
+    printf("b is at address %p\n", b);
+    */
+    /*
+    printf("Test 3: 3 ints \n");
+    my_initialize_heap(100);
+    int* a = my_alloc(sizeof(int)); // gimme an int.
+    printf("a is at address %p\n", a); // %p prints the memory address of a pointer in hexadecimal.
+    my_free(a);
+    int* b = my_alloc(sizeof(int));
+    printf("b is at address %p\n", b);
+    */
+    /*
+    printf("Test 4: 1 char \n");
+    my_initialize_heap(100);
+    int* a = my_alloc(sizeof(int)); // gimme an int.
+    printf("a is at address %p\n", a); // %p prints the memory address of a pointer in hexadecimal.
+    my_free(a);
+    int* b = my_alloc(sizeof(int));
+    printf("b is at address %p\n", b);
+    */
+    /*
+    printf("Test 5: 80 element int + 1 int \n");
+    my_initialize_heap(100);
+    int* a = my_alloc(sizeof(int)); // gimme an int.
+    printf("a is at address %p\n", a); // %p prints the memory address of a pointer in hexadecimal.
+    my_free(a);
+    int* b = my_alloc(sizeof(int));
+    printf("b is at address %p\n", b);
+    */
+
     // Make sure they're the same...
 }

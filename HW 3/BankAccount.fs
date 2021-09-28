@@ -2,12 +2,16 @@
 
 open System
 
-// Define a function to construct a message to print
-let from whom =
-    sprintf "from %s" whom
+type AccountStatus = 
+    | Empty of int
+    | Balance of int
+    | OverDrawn of int
+
+type BankAccount = {name: string; account: AccountStatus; creditLimit: int option }
+
+let withdraw bankAccount requestInt =
+    ()
 
 [<EntryPoint>]
 let main argv =
-    let message = from "F#" // Call the function
-    printfn "Hello world %s" message
     0 // return an integer exit code

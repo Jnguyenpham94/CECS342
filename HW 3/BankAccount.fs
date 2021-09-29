@@ -11,9 +11,20 @@ type BankAccount = {name: string; account: AccountStatus; creditLimit: int optio
 //TODO: withdraw function overdrawn done EMPTY and Balance
 let withdraw bankAccount requestInt =
     match bankAccount.account with
-    | OverDrawn o -> (requestInt,{name = bankAccount.name; account = bankAccount.account; creditLimit = bankAccount.creditLimit})
+    | OverDrawn o -> (0,{name = bankAccount.name; account = bankAccount.account; creditLimit = bankAccount.creditLimit})
     | Empty e -> (requestInt,{name = bankAccount.name; account = bankAccount.account; creditLimit = bankAccount.creditLimit})
-    | Balance b -> (b - requestInt,{name = bankAccount.name; account = bankAccount.account; creditLimit = bankAccount.creditLimit})
+    | Balance b1 -> (b1 - requestInt,{name = bankAccount.name; account = bankAccount.account; creditLimit = bankAccount.creditLimit})
+
+let emptyCase bankAccount requestInt =
+    if bankAccount.creditLimit = None then
+        let x = (requestInt,{name = bankAccount.name; account = OverDrawn requestInt; creditLimit = bankAccount.creditLimit})
+        x
+        elif bankAccount.creditLimit < Some requestInt then
+            let y = (requestInt,{name = bankAccount.name; account = OverDrawn requestInt; creditLimit = bankAccount.creditLimit})
+            y
+        else
+            let z = (requestInt,{name = bankAccount.name; account = bankAccount.account; creditLimit = bankAccount.creditLimit})
+            z
 
 [<EntryPoint>]
 let main argv =

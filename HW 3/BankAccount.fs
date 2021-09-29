@@ -9,7 +9,7 @@ type AccountStatus =
 type BankAccount = {name: string; account: AccountStatus; creditLimit: int option}
 
 //TODO: withdraw function overdrawn done EMPTY and Balance
-let withdraw bankAccount (requestInt : int) =
+let withdraw bankAccount requestInt =
     match bankAccount.account with
     | OverDrawn o -> (requestInt,{name = bankAccount.name; account = bankAccount.account; creditLimit = bankAccount.creditLimit})
     | Empty e -> (requestInt,{name = bankAccount.name; account = bankAccount.account; creditLimit = bankAccount.creditLimit})

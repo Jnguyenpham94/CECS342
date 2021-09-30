@@ -10,25 +10,34 @@ type BankAccount = {name: string; account: AccountStatus; creditLimit: int optio
 
 let emptyCase bankAccount requestInt =
     if bankAccount.creditLimit = None then
-        let x = (requestInt,{name = bankAccount.name; account = OverDrawn requestInt; creditLimit = bankAccount.creditLimit})
+        let x = (requestInt, {name = bankAccount.name; account = OverDrawn requestInt; creditLimit = bankAccount.creditLimit})
         x
         elif bankAccount.creditLimit > Some requestInt then
-            let y = (requestInt,{name = bankAccount.name; account = OverDrawn requestInt; creditLimit = bankAccount.creditLimit})
+            let y = (requestInt, {name = bankAccount.name; account = OverDrawn requestInt; creditLimit = bankAccount.creditLimit})
             y
         else
-            let remains = min bankAccount.creditLimit.Value requestInt
-            let z = (remains,{name = bankAccount.name; account = OverDrawn remains; creditLimit = bankAccount.creditLimit})
+            let remains = min bankAccount.creditLimit.Value requestInt //withdraw up to the credit limit
+            let z = (remains, {name = bankAccount.name; account = OverDrawn remains; creditLimit = bankAccount.creditLimit})
             z
 
-let BalanceCase bankAccount requestInt =
-    ()
+let balanceCase bankAccount requestInt =
+    if bankAccount.account > Empty 0 then 
+        if requestInt < bankAccount.account then
+            let x = (requestInt, {name = bankAccount.name; account = Balance 10; creditLimit = bankAccount.creditLimit})
+            x
+        elif bankAccount.account = requestInt then
+            let y = (requestInt, {name = bankAccount.name; account = Empty 0; creditLimit = bankAccount.creditLimit})
+            y
+        else
+            let z = emptyCase bankAccount requestInt
+            z
 
 //TODO: withdraw function overdrawn done EMPTY and Balance
 let withdraw bankAccount requestInt =
     match bankAccount.account with
-    | OverDrawn o -> (0,{name = bankAccount.name; account = bankAccount.account; creditLimit = bankAccount.creditLimit})
+    | OverDrawn o -> (0, {name = bankAccount.name; account = bankAccount.account; creditLimit = bankAccount.creditLimit})
     | Empty e -> emptyCase bankAccount requestInt
-    | Balance b1 -> (b1 - requestInt,{name = bankAccount.name; account = bankAccount.account; creditLimit = bankAccount.creditLimit})
+    | Balance b1 -> balanceCase bankAccount requestInt
 
 
 
@@ -43,7 +52,7 @@ let main argv =
     let result2 = withdraw neal 50
     let result2_1 = withdraw neal 1000
     let result2_2 = withdraw neal 100
-    let result3 = withdraw bob 1000
+    let result3 = withdraw bob 1000 //Case: credit < request
     let result4 = withdraw dave 300
     let result5 = withdraw tom 1000
     //printfn "%O" result1

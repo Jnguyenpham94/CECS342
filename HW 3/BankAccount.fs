@@ -8,6 +8,7 @@ type AccountStatus =
 
 type BankAccount = {name: string; account: AccountStatus; creditLimit: int option}
 
+//AccountStatus = Empty 0 
 let emptyCase bankAccount requestInt =
     if bankAccount.creditLimit = None then
         let x = (requestInt, {name = bankAccount.name; account = OverDrawn requestInt; creditLimit = bankAccount.creditLimit})
@@ -20,24 +21,25 @@ let emptyCase bankAccount requestInt =
             let z = (remains, {name = bankAccount.name; account = OverDrawn remains; creditLimit = bankAccount.creditLimit})
             z
 
-let balanceCase bankAccount requestInt =
-    if bankAccount.account > Empty 0 then 
-        if requestInt < bankAccount.account then
-            let x = (requestInt, {name = bankAccount.name; account = Balance 10; creditLimit = bankAccount.creditLimit})
-            x
-        elif bankAccount.account = requestInt then
-            let y = (requestInt, {name = bankAccount.name; account = Empty 0; creditLimit = bankAccount.creditLimit})
-            y
-        else
-            let z = emptyCase bankAccount requestInt
-            z
+//AccountStatus = Balance > 0
+let balanceCase (bankAccount : BankAccount) (requestInt : int) =
+    ()
 
-//TODO: withdraw function overdrawn done EMPTY and Balance
+
 let withdraw bankAccount requestInt =
     match bankAccount.account with
     | OverDrawn o -> (0, {name = bankAccount.name; account = bankAccount.account; creditLimit = bankAccount.creditLimit})
     | Empty e -> emptyCase bankAccount requestInt
-    | Balance b1 -> balanceCase bankAccount requestInt
+    | Balance b -> if requestInt < b then //balance - request
+                        let bal = b - requestInt
+                        let x = (requestInt, {name = bankAccount.name; account = Balance bal; creditLimit = bankAccount.creditLimit})
+                        x
+                   elif b = requestInt then //balance = request
+                        let y = (requestInt, {name = bankAccount.name; account = Empty 0; creditLimit = bankAccount.creditLimit})
+                        y
+                    else //basically emptycase
+                        let z = emptyCase bankAccount requestInt
+                        z
 
 
 

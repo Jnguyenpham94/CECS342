@@ -19,7 +19,7 @@ let emptyCase bankAccount requestInt b  =
         y
     else
         let remains = min bankAccount.creditLimit.Value requestInt //withdraw up to the credit limit
-        let z = (abs (bankAccount.creditLimit.Value + b), {name = bankAccount.name; account = OverDrawn remains; creditLimit = bankAccount.creditLimit})
+        let z = ((bankAccount.creditLimit.Value + b), {name = bankAccount.name; account = OverDrawn remains; creditLimit = bankAccount.creditLimit})
         z
 
 //AccountStatus = Balance positive

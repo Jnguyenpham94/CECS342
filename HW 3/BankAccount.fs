@@ -2,42 +2,36 @@
 open System
 
 type AccountStatus = 
-    | Empty of int
-    | Balance of int
-    | OverDrawn of int
+    | Empty of int //Empty 0
+    | Balance of int //positive balance
+    | OverDrawn of int //negative balance
 
 type BankAccount = {name: string; account: AccountStatus; creditLimit: int option}
 
 //function logic below
 //AccountStatus = Empty 0 
-let emptyCase bankAccount requestInt (b : int) =
+let emptyCase bankAccount requestInt b  =
     if bankAccount.creditLimit = None then
-        printfn "Got TO emptyCase 1 %O" b
-        let x = (requestInt, {name = bankAccount.name; account = OverDrawn (requestInt - b); creditLimit = bankAccount.creditLimit})
+        let x = (requestInt, {name = bankAccount.name; account = OverDrawn (abs (b - requestInt)); creditLimit = bankAccount.creditLimit})
         x
-        elif bankAccount.creditLimit > Some requestInt then
-            printfn "Got TO emptyCase 2 %O" b
-            let y = (requestInt, {name = bankAccount.name; account = OverDrawn (b - requestInt); creditLimit = bankAccount.creditLimit})
-            y
-        else
-            printfn "Got TO emptyCase 3 %O" b
-            let remains = min bankAccount.creditLimit.Value requestInt //withdraw up to the credit limit
-            let z = (remains, {name = bankAccount.name; account = OverDrawn remains; creditLimit = bankAccount.creditLimit})
-            z
+    elif bankAccount.creditLimit > Some requestInt then
+        let y = (requestInt, {name = bankAccount.name; account = OverDrawn (abs (b - requestInt)); creditLimit = bankAccount.creditLimit})
+        y
+    else
+        let remains = min bankAccount.creditLimit.Value requestInt //withdraw up to the credit limit
+        let z = (abs (bankAccount.creditLimit.Value + b), {name = bankAccount.name; account = OverDrawn remains; creditLimit = bankAccount.creditLimit})
+        z
 
-//AccountStatus = Balance > 0
+//AccountStatus = Balance positive
 let balanceCase bankAccount requestInt b =
     if requestInt < b then //balance - request
-        printfn "Got TO balanceCase 1 %O" b
         let bal = b - requestInt
         let x = (requestInt, {name = bankAccount.name; account = Balance bal; creditLimit = bankAccount.creditLimit})
         x
     elif b = requestInt then //balance = request
-        printfn "Got TO balanceCase 2 %O" b
         let y = (requestInt, {name = bankAccount.name; account = Empty 0; creditLimit = bankAccount.creditLimit})
         y
     else //basically emptycase
-        printfn "Got TO balanceCase 3 %O" b
         let z = emptyCase bankAccount requestInt b
         z
 
@@ -53,7 +47,7 @@ let withdraw bankAccount requestInt =
 [<EntryPoint>]
 let main argv =
     //let m_burns = {name = "Montgomery Burns"; account = Balance 100000; creditLimit = Some 10000}
-    //let bob = {name = "Robert Dugalle"; account = Empty 0; creditLimit = Some 100}
+    //let bob = {name = "Robert Dugalle"; account = Empty 0; creditLimit = Some 200}
     let neal = {name = "Neal Terrell"; account = Balance 100; creditLimit = None}
     let dave = {name = "Dave Davidson"; account = OverDrawn 200; creditLimit = Some 0}
     let tom = {name = "Tom Thompson"; account = Balance 100; creditLimit = Some 500}

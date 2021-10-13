@@ -2,6 +2,7 @@
 The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
 Find the sum of all the primes below two million.
 *)
+module Project1
 
 //n is value to check if prime
 let isPrime n =
@@ -41,10 +42,11 @@ let sumPrimes max =
         i <- i + 2
     sum
 
-
+(*
 [<EntryPoint>]
 let main args =
     let max = 2000000
     let sum = sumPrimes max
     printfn "The sum of primes up to %d is: %d" max sum
     0
+*)

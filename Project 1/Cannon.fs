@@ -1,4 +1,4 @@
-(* text-based game in which the player attempts to shoot cannonballs at a target that is some
+﻿(* text-based game in which the player attempts to shoot cannonballs at a target that is some
 distance away. The player repeatedly enters an angle to fire the cannon at and an amount of gunpowder
 to use. The game calculates how far the cannonball will fly under those parameters and continues until the
 cannonball falls within 1 meter of the target. 
@@ -16,7 +16,7 @@ let placeTarget () =
 let getAngle () =
     printfn "Enter angle between 0 - 90: "
     let mutable amount = Console.ReadLine() |> float
-    while amount < 0 && amount > 90 do
+    while amount < 0.0 && amount > 90.0 do
         printfn "Angle is out of bounds. Enter angle between 0 - 90: "
         amount <- Console.ReadLine() |> float
     amount
@@ -52,10 +52,13 @@ let isHit location distance =
         false
 
 let dist diff =
+    let mutable dist = ""
     if diff < 0.0 then
         dist <- "Short"
+        dist
     else
         dist <- "Long"
+        dist
 
 //main
 [<EntryPoint>]

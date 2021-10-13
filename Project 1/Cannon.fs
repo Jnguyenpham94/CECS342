@@ -51,6 +51,12 @@ let isHit location distance =
     else
         false
 
+let dist diff =
+    if diff < 0.0 then
+        dist <- "Short"
+    else
+        dist <- "Long"
+
 //main
 [<EntryPoint>]
 let main args =
@@ -70,7 +76,7 @@ let main args =
         printfn "WOW got a hit on the first try!!!"
     else
         diff <- target-travel
-        printfn "You are %f off the target" diff
+        printfn "You are %f %s the target" diff (dist diff)
         while hit = false do
             angle <- getAngle ()
             powder <- getGunpowder ()
@@ -82,6 +88,6 @@ let main args =
                 printfn "%d shots taken" shots
             else
                 diff <- target-travel
-                printfn "You are %f off the target" diff
+                printfn "You are %f %s the target" diff (dist diff)
                 printfn "%d shots taken" shots
     0

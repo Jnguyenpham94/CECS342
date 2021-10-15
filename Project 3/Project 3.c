@@ -1,5 +1,6 @@
 
-#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
 
 struct Employee
 {
@@ -24,5 +25,5 @@ struct CommissionEmployee
 
 int main()
 {
-    
+    printf("HELLO WORLD");
 }

@@ -18,10 +18,30 @@ struct HourlyEmployee
 
 struct CommissionEmployee
 {
+    void** vtable;
     double sales_amount;
 };
 
 //functions go HERE
+void Speak_Hourly(struct Employee* emp) 
+{
+
+}
+
+void GetPay_Hourly(struct Employee* emp)
+{
+
+}
+
+void Construct_Hourly(struct HourlyEmployee* h_emp)
+{
+
+}
+
+void Speak_Commission()
+{
+
+}
 
 int main()
 {

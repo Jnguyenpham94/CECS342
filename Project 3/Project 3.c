@@ -19,6 +19,9 @@ struct HourlyEmployee
 struct CommissionEmployee
 {
     void** vtable;
+    int age;
+    double hourly_rate;
+    double hours;
     double sales_amount;
 };
 

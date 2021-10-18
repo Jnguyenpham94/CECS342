@@ -25,30 +25,50 @@ struct CommissionEmployee
     double sales_amount;
 };
 
+//global vtable arrays
+
+int Vtable_Hourly[];
+int Vtable_Commission[];
+
 //functions go HERE
 
 void Speak_Hourly(struct Employee *emp) 
 {
-    emp = (struct HourlyEmployee*)emp;
-    printf("I work for %d dollars per hour", emp->hours);
+    struct HourlyEmployee* emp2 = (struct HourlyEmployee*) &emp;
+    printf("I work for %f dollars per hour", emp2->hourly_rate);
 }
 
-void GetPay_Hourly(struct Employee* emp)
+void GetPay_Hourly(struct Employee *emp)
 {
 
 }
 
-void Construct_Hourly(struct HourlyEmployee* h_emp)
+void Construct_Hourly(struct HourlyEmployee *h_emp)
+{
+    h_emp->age = 0;
+    h_emp->hourly_rate = 0;
+    h_emp->hours = 0;
+    h_emp->vtable = Vtable_Hourly;
+}
+
+void Speak_Commission(struct Employee *emp)
 {
 
 }
 
-void Speak_Commission()
+void GetPay_Commission(struct Employee *emp)
 {
 
 }
+
+void Construct_Commission(struct CommissionEmployee *c_emp) 
+{
+
+}
+
 
 int main()
 {
-    printf("HELLO WORLD");
+    struct Employee emp;
+    Speak_Hourly(&emp);
 }

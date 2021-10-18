@@ -4,13 +4,13 @@
 
 struct Employee
 {
-    void** vtable;
+    void **vtable;
     int age;
 };
 
 struct HourlyEmployee
 {
-    void** vtable;
+    void **vtable;
     int age;
     double hourly_rate;
     double hours;
@@ -18,7 +18,7 @@ struct HourlyEmployee
 
 struct CommissionEmployee
 {
-    void** vtable;
+    void **vtable;
     int age;
     double hourly_rate;
     double hours;
@@ -26,9 +26,11 @@ struct CommissionEmployee
 };
 
 //functions go HERE
-void Speak_Hourly(struct Employee* emp) 
-{
 
+void Speak_Hourly(struct Employee *emp) 
+{
+    emp = (struct HourlyEmployee*)emp;
+    printf("I work for %d dollars per hour", emp->hours);
 }
 
 void GetPay_Hourly(struct Employee* emp)

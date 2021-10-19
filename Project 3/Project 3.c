@@ -27,8 +27,8 @@ struct CommissionEmployee
 
 //global vtable arrays
 
-int Vtable_Hourly[];
-int Vtable_Commission[];
+void* Vtable_Hourly[];
+void* Vtable_Commission[];
 
 //functions go HERE
 
@@ -53,7 +53,8 @@ void Construct_Hourly(struct HourlyEmployee *h_emp)
 
 void Speak_Commission(struct Employee *emp)
 {
-
+    struct CommissionEmployee* emp2 = (struct CommisionEmployee*)&emp;
+    printf("I work for %f dollars per hour", emp2->hourly_rate);
 }
 
 void GetPay_Commission(struct Employee *emp)

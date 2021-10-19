@@ -25,11 +25,6 @@ struct CommissionEmployee
     double sales_amount;
 };
 
-//global vtable arrays
-
-void* Vtable_Hourly[];
-void* Vtable_Commission[];
-
 //functions go HERE
 
 void Speak_Hourly(struct Employee *emp) 
@@ -38,9 +33,20 @@ void Speak_Hourly(struct Employee *emp)
     printf("I work for %f dollars per hour", emp2->hourly_rate);
 }
 
-void GetPay_Hourly(struct Employee *emp)
+void Speak_Commission(struct Employee* emp)
 {
+    struct CommissionEmployee* emp2 = (struct CommisionEmployee*)&emp;
+    printf("I work for %f dollars per hour", emp2->hourly_rate);
+}
 
+void GetPay_Hourly(struct HourlyEmployee *h_emp)
+{
+    return h_emp->hours * h_emp->hourly_rate;
+}
+
+void GetPay_Commission(struct CommissionEmployee *c_emp)
+{
+    return (c_emp->sales_amount * .1) + 40000;
 }
 
 void Construct_Hourly(struct HourlyEmployee *h_emp)
@@ -51,25 +57,66 @@ void Construct_Hourly(struct HourlyEmployee *h_emp)
     h_emp->vtable = Vtable_Hourly;
 }
 
-void Speak_Commission(struct Employee *emp)
-{
-    struct CommissionEmployee* emp2 = (struct CommisionEmployee*)&emp;
-    printf("I work for %f dollars per hour", emp2->hourly_rate);
-}
-
-void GetPay_Commission(struct Employee *emp)
-{
-
-}
-
 void Construct_Commission(struct CommissionEmployee *c_emp) 
 {
-
+    c_emp->age = 0;
+    c_emp->hourly_rate = 0;
+    c_emp->hours = 0;
+    c_emp->sales_amount = 0;
+    c_emp->vtable = Vtable_Commission;
 }
 
+//global vtable arrays
+
+void* Vtable_Hourly[] = {Speak_Hourly, GetPay_Hourly};
+void* Vtable_Commission[] = {Speak_Commission, GetPay_Commission};
+
+struct SeniorSalesman
+{
+    void** vtable;
+    int age;
+    double hourly_rate;
+    double hours;
+    double sales_amount;
+};
+
+void* Vtable_Senior[] = { Speak_Commission, GetPay_Senior};
+
+void GetPay_Senior(struct SeniorSalesman *s_emp)
+{
+    if (s_emp->age >= 40)
+    {
+        return (s_emp->sales_amount * .2) + 50000 + (s_emp->sales_amount * .05);
+    }
+    else
+    {
+        return (s_emp->sales_amount * .2) + 50000;
+    }
+}
 
 int main()
 {
-    struct Employee emp;
-    Speak_Hourly(&emp);
+    struct Employee* emp;
+    printf("Choose: hourly employee, commission employee, or senior salesman");
+    char input[20];
+    fgets(input, sizeof(input), stdin);
+    if (input == "hourly employee") 
+    {
+        //HourlyEmployee* h = (HourlyEmployee*)malloc();
+        printf("How old is employee?");
+    }
+    else if (input == "commission employee")
+    {
+        //CommissionEmployee* c = (CommissionEmployee*)malloc();
+        printf("How old is employee?");
+    }
+    else if(input == "senior employee")
+    {
+        //SeniorSalesman* s = (SeniorSalesman*)malloc();
+        printf("How old is employee?");
+    }
+    else
+    {
+        printf("input error");
+    }
 }

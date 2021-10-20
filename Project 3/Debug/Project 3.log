@@ -1,8 +1,4 @@
 ﻿  Project 3.c
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(38,45): warning C4098: 'GetPay_Hourly': 'void' function returning a value
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(46,34): error C2065: 'Vtable_Hourly': undeclared identifier
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(46,34): warning C4047: '=': 'void **' differs in levels of indirection from 'int'
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(51,1): warning C4133: 'initializing': incompatible types - from 'CommisionEmployee *' to 'CommissionEmployee *'
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(57,46): warning C4098: 'GetPay_Commission': 'void' function returning a value
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(66,38): error C2065: 'Vtable_Commission': undeclared identifier
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(66,38): warning C4047: '=': 'void **' differs in levels of indirection from 'int'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(38,1): warning C4133: 'initializing': incompatible types - from 'CommisionEmployee *' to 'CommissionEmployee *'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(98,22): warning C4101: 'emp': unreferenced local variable
+  Project 3.vcxproj -> C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Debug\Project 3.exe

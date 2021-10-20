@@ -35,7 +35,7 @@ void Speak_Hourly(struct Employee *emp)
 
 void Speak_Commission(struct Employee* emp)
 {
-    struct CommissionEmployee* emp2 = (struct CommisionEmployee*)&emp;
+    struct CommissionEmployee* emp2 = (struct CommisionEmployee*) &emp;
     printf("I work for %f dollars per hour", emp2->hourly_rate);
 }
 
@@ -98,21 +98,38 @@ int main()
     struct Employee* emp;
     printf("Choose: hourly employee, commission employee, or senior salesman");
     char input[20];
+    int age;
     fgets(input, sizeof(input), stdin);
-    if (input == "hourly employee") 
+    //TODO: construct calls
+    if (tolower(input) == "hourly employee") 
     {
         //HourlyEmployee* h = (HourlyEmployee*)malloc();
-        printf("How old is employee?");
+        printf("How old is employee? ");
+        age = scanf("%d", &age);
+        printf("What is the employee's pay rate? ");
+        double pay;
+        pay = scanf("%lf", &pay);
+        printf("What is the employee's hours? ");
+        double hours;
+        hours = scanf("%lf", &hours);
     }
-    else if (input == "commission employee")
+    else if (tolower(input) == "commission employee")
     {
         //CommissionEmployee* c = (CommissionEmployee*)malloc();
         printf("How old is employee?");
+        age = scanf("%d", &age);
+        double sales;
+        printf("What is the employee's sales? ");
+        sales = scanf("%lf", &sales);
     }
-    else if(input == "senior employee")
+    else if(tolower(input) == "senior employee")
     {
         //SeniorSalesman* s = (SeniorSalesman*)malloc();
         printf("How old is employee?");
+        age = scanf("%d", &age);
+        double sales;
+        printf("What is the employee's sales? ");
+        sales = scanf("%lf", &sales);
     }
     else
     {

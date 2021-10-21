@@ -113,7 +113,7 @@ int main()
     char input[20];
     int age;
     fgets(input, sizeof(input), stdin);
-    if (strcmp(tolower(input), "hourly employee\0") == 0)
+    if (strcmp(input, "hourly employee\0") == 0)
     {
         struct HourlyEmployee* hr = (struct HourlyEmployee*) malloc(sizeof(struct HourlyEmployee));
         printf("How old is employee? ");
@@ -128,7 +128,7 @@ int main()
         emp = &hr;
         ((void (*)(struct Employee*))Vtable_Hourly[0])((struct Employee*)&hr);
     }
-    else if (strcmp(tolower(input), "commission employee\0") == 0)
+    else if (strcmp(input, "commission employee\0") == 0)
     {
         struct CommissionEmployee* cm = (struct CommissionEmployee*)malloc(sizeof(struct CommissionEmployee));
         printf("How old is employee? ");
@@ -140,7 +140,7 @@ int main()
         emp = &cm;
         ((void (*)(struct Employee*))Vtable_Commission[0])((struct Employee*)&cm);
     }
-    else if(strcmp(tolower(input), "senior employee\0") == 0)
+    else if(strcmp(input, "senior employee\0") == 0)
     {
         struct SeniorSalesman* snr = (struct SeniorSalesman*)malloc(sizeof(struct SeniorSalesman));
         printf("How old is employee? ");

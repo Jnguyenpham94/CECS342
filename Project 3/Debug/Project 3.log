@@ -1,7 +1,6 @@
 ﻿  Project 3.c
 C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(38,1): warning C4133: 'initializing': incompatible types - from 'CommisionEmployee *' to 'CommissionEmployee *'
 C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(116,15): warning C4013: 'strcmp' undefined; assuming extern returning int
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(116,23): warning C4013: 'tolower' undefined; assuming extern returning int
 C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(127,29): warning C4047: 'function': 'HourlyEmployee *' differs in levels of indirection from 'HourlyEmployee **'
 C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(127,26): warning C4024: 'Construct_Hourly': different types for formal and actual parameter 1
 C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(128,18): warning C4047: '=': 'Employee *' differs in levels of indirection from 'HourlyEmployee **'

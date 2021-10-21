@@ -1,4 +1,10 @@
 ﻿  Project 3.c
 C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(38,1): warning C4133: 'initializing': incompatible types - from 'CommisionEmployee *' to 'CommissionEmployee *'
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(98,22): warning C4101: 'emp': unreferenced local variable
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(116,16): warning C4013: 'tolower' undefined; assuming extern returning int
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(116,44): warning C4047: '==': 'int' differs in levels of indirection from 'char [16]'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(128,18): warning C4047: '=': 'Employee *' differs in levels of indirection from 'HourlyEmployee **'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(130,53): warning C4047: '==': 'int' differs in levels of indirection from 'char [20]'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(139,18): warning C4047: '=': 'Employee *' differs in levels of indirection from 'CommissionEmployee **'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(141,48): warning C4047: '==': 'int' differs in levels of indirection from 'char [16]'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(150,19): warning C4047: '=': 'Employee *' differs in levels of indirection from 'SeniorSalesman **'
   Project 3.vcxproj -> C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Debug\Project 3.exe

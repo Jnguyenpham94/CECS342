@@ -109,7 +109,7 @@ void Construct_Senior(struct SeniorSalesman* s_emp)
 int main()
 {
     struct Employee* emp;
-    printf("Choose: hourly employee, commission employee, or senior salesman");
+    printf("Choose: hourly employee, commission employee, or senior salesman\n");
     char input[20];
     int age;
     fgets(input, sizeof(input), stdin);
@@ -124,8 +124,9 @@ int main()
         printf("What is the employee's hours? ");
         double hours;
         scanf_s("%lf", &hours);
-        Construct_Hourly(hr);
+        Construct_Hourly(&hr);
         emp = &hr;
+        ((void (*)(struct Employee*))Vtable_Hourly[0])((struct Employee*)&hr);
     }
     else if (tolower(input) == "commission employee")
     {
@@ -135,8 +136,9 @@ int main()
         double sales;
         printf("What is the employee's sales? ");
         scanf_s("%lf", &sales);
-        Construct_Commission(cm);
+        Construct_Commission(&cm);
         emp = &cm;
+        ((void (*)(struct Employee*))Vtable_Commission[0])((struct Employee*)&cm);
     }
     else if(tolower(input) == "senior employee")
     {
@@ -146,11 +148,12 @@ int main()
         double sales;
         printf("What is the employee's sales? ");
         scanf_s("%lf", &sales);
-        Construct_Senior(snr);
+        Construct_Senior(&snr);
         emp = &snr;
+        ((void (*)(struct Employee*))Vtable_Commission[0])((struct Employee*)&snr);
     }
     else
     {
-        printf("input error");
+        printf("input error! BYE BYE");
     }
 }

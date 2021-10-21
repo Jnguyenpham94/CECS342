@@ -109,11 +109,11 @@ void Construct_Senior(struct SeniorSalesman* s_emp)
 int main()
 {
     struct Employee* emp;
-    printf("Choose: hourly employee, commission employee, or senior salesman\n");
+    printf("Choose: hourly employee, commission employee, or senior salesman: ");
     char input[20];
     int age;
     fgets(input, sizeof(input), stdin);
-    if (tolower(input) == "hourly employee") 
+    if (strcmp(tolower(input), "hourly employee\0") == 0)
     {
         struct HourlyEmployee* hr = (struct HourlyEmployee*) malloc(sizeof(struct HourlyEmployee));
         printf("How old is employee? ");
@@ -128,10 +128,10 @@ int main()
         emp = &hr;
         ((void (*)(struct Employee*))Vtable_Hourly[0])((struct Employee*)&hr);
     }
-    else if (tolower(input) == "commission employee")
+    else if (strcmp(tolower(input), "commission employee\0") == 0)
     {
         struct CommissionEmployee* cm = (struct CommissionEmployee*)malloc(sizeof(struct CommissionEmployee));
-        printf("How old is employee?");
+        printf("How old is employee? ");
         scanf_s("%d", &age);
         double sales;
         printf("What is the employee's sales? ");
@@ -140,10 +140,10 @@ int main()
         emp = &cm;
         ((void (*)(struct Employee*))Vtable_Commission[0])((struct Employee*)&cm);
     }
-    else if(tolower(input) == "senior employee")
+    else if(strcmp(tolower(input), "senior employee\0") == 0)
     {
         struct SeniorSalesman* snr = (struct SeniorSalesman*)malloc(sizeof(struct SeniorSalesman));
-        printf("How old is employee?");
+        printf("How old is employee? ");
         scanf_s("%d", &age);
         double sales;
         printf("What is the employee's sales? ");

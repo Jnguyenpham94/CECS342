@@ -30,7 +30,7 @@ struct CommissionEmployee
 void Speak_Hourly(struct Employee *emp) 
 {
     struct HourlyEmployee* emp2 = (struct HourlyEmployee*) &emp;
-    printf("I work for %f dollars per hour", emp2->hourly_rate);
+    printf("I made %f dollars", emp2->hourly_rate);
 }
 
 void Speak_Commission(struct Employee* emp)
@@ -41,14 +41,14 @@ void Speak_Commission(struct Employee* emp)
 
 //GetPay functions begin
 
-double GetPay_Hourly(struct HourlyEmployee *h_emp)
+double GetPay_Hourly(struct HourlyEmployee *emp)
 {
-    return h_emp->hours * h_emp->hourly_rate;
+    return emp->hours * emp->hourly_rate;
 }
 
-double GetPay_Commission(struct CommissionEmployee *c_emp)
+double GetPay_Commission(struct CommissionEmployee *emp)
 {
-    return (c_emp->sales_amount * .1) + 40000;
+    return (emp->sales_amount * .1) + 40000;
 }
 
 void* Vtable_Hourly[] = { Speak_Hourly, GetPay_Hourly };
@@ -109,11 +109,11 @@ void Construct_Senior(struct SeniorSalesman* s_emp)
 int main()
 {
     struct Employee* emp;
-    printf("Choose: hourly employee, commission employee, or senior salesman: ");
+    printf("Choose: \n(1)hourly employee\n(2)commission employee\n(3)senior salesman\n");
     char input[20];
     int age;
     fgets(input, sizeof(input), stdin);
-    if (strcmp(input, "hourly employee\0") == 0)
+    if (strcmp(input, "hourly employee\n\0") == 0 || strcmp(input, "1\n\0") == 0)
     {
         struct HourlyEmployee* hr = (struct HourlyEmployee*) malloc(sizeof(struct HourlyEmployee));
         printf("How old is employee? ");
@@ -128,7 +128,7 @@ int main()
         emp = &hr;
         ((void (*)(struct Employee*))Vtable_Hourly[0])((struct Employee*)&hr);
     }
-    else if (strcmp(input, "commission employee\0") == 0)
+    else if (strcmp(input, "commission employee\0") == 0 || strcmp(input, "2\n\0") == 0)
     {
         struct CommissionEmployee* cm = (struct CommissionEmployee*)malloc(sizeof(struct CommissionEmployee));
         printf("How old is employee? ");
@@ -140,7 +140,7 @@ int main()
         emp = &cm;
         ((void (*)(struct Employee*))Vtable_Commission[0])((struct Employee*)&cm);
     }
-    else if(strcmp(input, "senior employee\0") == 0)
+    else if(strcmp(input, "senior employee\0") == 0 || strcmp(input, "3\n\0") == 0)
     {
         struct SeniorSalesman* snr = (struct SeniorSalesman*)malloc(sizeof(struct SeniorSalesman));
         printf("How old is employee? ");

@@ -45,10 +45,7 @@ void* Vtable_Senior[2];
 void Speak_Hourly(struct Employee* emp);
 void Speak_Commission(struct Employee* emp);
 
-//Speak functions begin
 //((void (*)(struct Employee*))Vtable_Hourly[0])((struct Employee*)&emp)
-
-//GetPay functions begin
 
 double GetPay_Hourly(struct Employee* emp)
 {
@@ -64,14 +61,14 @@ void Speak_Hourly(struct Employee* emp)
 {
     struct HourlyEmployee* emp2;
     emp2 = (struct HourlyEmployee*)&emp;
-    printf("Employee made %f dollars", GetPay_Hourly(&emp2));
+    printf("Employee made %.2f dollars", GetPay_Hourly(&emp2));
 }
 
 void Speak_Commission(struct Employee* emp)
 {
     struct Employee* emp2;
     emp2 = (struct CommisionEmployee*)&emp;
-    printf("Employee made %f dollars", GetPay_Commission(&emp2));
+    printf("Employee made %.2f dollars", GetPay_Commission(&emp2));
 }
 
 void Construct_Hourly(struct HourlyEmployee* h_emp, int h_age, double h_rate, double h_hours)

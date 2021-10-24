@@ -1,16 +1,19 @@
 ﻿  Project 3.c
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(63,58): warning C4047: 'function': 'HourlyEmployee *' differs in levels of indirection from 'Employee **'
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(63,54): warning C4024: 'GetPay_Hourly': different types for formal and actual parameter 1
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(62,1): warning C4047: 'initializing': 'Employee *' differs in levels of indirection from 'HourlyEmployee **'
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(68,1): warning C4133: 'initializing': incompatible types - from 'CommisionEmployee *' to 'CommissionEmployee *'
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(123,15): warning C4013: 'strcmp' undefined; assuming extern returning int
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(134,29): warning C4047: 'function': 'HourlyEmployee *' differs in levels of indirection from 'HourlyEmployee **'
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(134,26): warning C4024: 'Construct_Hourly': different types for formal and actual parameter 1
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(135,18): warning C4047: '=': 'Employee *' differs in levels of indirection from 'HourlyEmployee **'
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(146,33): warning C4047: 'function': 'CommissionEmployee *' differs in levels of indirection from 'CommissionEmployee **'
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(146,30): warning C4024: 'Construct_Commission': different types for formal and actual parameter 1
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(147,18): warning C4047: '=': 'Employee *' differs in levels of indirection from 'CommissionEmployee **'
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(158,30): warning C4047: 'function': 'SeniorSalesman *' differs in levels of indirection from 'SeniorSalesman **'
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(158,26): warning C4024: 'Construct_Senior': different types for formal and actual parameter 1
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(159,19): warning C4047: '=': 'Employee *' differs in levels of indirection from 'SeniorSalesman **'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(63,42): warning C4028: formal parameter 1 different from declaration
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(66,40): warning C4133: '=': incompatible types - from 'HourlyEmployee *' to 'Employee *'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(68,58): warning C4047: 'function': 'HourlyEmployee *' differs in levels of indirection from 'HourlyEmployee **'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(68,54): warning C4024: 'GetPay_Hourly': different types for formal and actual parameter 1
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(71,50): warning C4028: formal parameter 1 different from declaration
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(74,43): warning C4133: '=': incompatible types - from 'CommisionEmployee *' to 'Employee *'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(75,62): warning C4133: 'function': incompatible types - from 'Employee *' to 'CommissionEmployee *'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(129,15): warning C4013: 'strcmp' undefined; assuming extern returning int
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(140,29): warning C4047: 'function': 'HourlyEmployee *' differs in levels of indirection from 'HourlyEmployee **'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(140,26): warning C4024: 'Construct_Hourly': different types for formal and actual parameter 1
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(141,18): warning C4047: '=': 'Employee *' differs in levels of indirection from 'HourlyEmployee **'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(152,33): warning C4047: 'function': 'CommissionEmployee *' differs in levels of indirection from 'CommissionEmployee **'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(152,30): warning C4024: 'Construct_Commission': different types for formal and actual parameter 1
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(153,18): warning C4047: '=': 'Employee *' differs in levels of indirection from 'CommissionEmployee **'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(164,30): warning C4047: 'function': 'SeniorSalesman *' differs in levels of indirection from 'SeniorSalesman **'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(164,26): warning C4024: 'Construct_Senior': different types for formal and actual parameter 1
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(165,19): warning C4047: '=': 'Employee *' differs in levels of indirection from 'SeniorSalesman **'
   Project 3.vcxproj -> C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Debug\Project 3.exe

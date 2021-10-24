@@ -34,18 +34,30 @@ struct SeniorSalesman
     double sales_amount;
 };
 
+//Speak function declarations
+
+void Speak_Hourly(struct Employee* emp);
+void Speak_Commission(struct Employee* emp);
+
+double GetPay_Hourly(struct Employee* emp);
+double GetPay_Commission(struct Employee* emp);
+double GetPay_Senior(struct Employee* s_emp);
+
+void Construct_Hourly(struct HourlyEmployee* h_emp, int h_age, double h_rate, double h_hours);
+void Construct_Commission(struct CommissionEmployee* c_emp, int c_age, double c_sales);
+void Construct_Senior(struct SeniorSalesman* s_emp, int s_age, double s_sales);
+
 //Vtable declarations
 
 void* Vtable_Hourly[2];
 void* Vtable_Commission[2];
 void* Vtable_Senior[2];
 
-//Speak function declarations
+//Vtable initializations
 
-void Speak_Hourly(struct Employee* emp);
-void Speak_Commission(struct Employee* emp);
-
-//((void (*)(struct Employee*))Vtable_Hourly[0])((struct Employee*)&emp)
+void* Vtable_Hourly[] = { Speak_Hourly, GetPay_Hourly };
+void* Vtable_Commission[] = { Speak_Commission, GetPay_Commission };
+void* Vtable_Senior[] = { Speak_Commission, GetPay_Senior };
 
 double GetPay_Hourly(struct Employee* emp)
 {
@@ -72,7 +84,7 @@ void Speak_Commission(struct Employee* emp)
 {
     struct Employee* emp2;
     emp2 = (struct CommissionEmployee*)&emp;
-    printf("Employee made $%.2f ", GetPay_Commission(&emp2));
+    printf("Employee made $%.2f ", GetPay_Senior(&emp2));
 }
 
 void Construct_Hourly(struct HourlyEmployee* h_emp, int h_age, double h_rate, double h_hours)
@@ -92,15 +104,17 @@ void Construct_Commission(struct CommissionEmployee* c_emp, int c_age, double c_
     c_emp->vtable = Vtable_Commission;
 }
 
-double GetPay_Senior(struct SeniorSalesman* s_emp)
+double GetPay_Senior(struct Employee* emp)
 {
-    if (s_emp->age >= 40)
+    struct SeniorSalesman* emp2 = (struct SeniorSalesman*)malloc(sizeof(struct SeniorSalesman));
+    emp2 = (struct SeniorSalesman*)&emp;
+    if (emp2->age >= 40)
     {
-        return (s_emp->sales_amount * .2) + 50000 + (s_emp->sales_amount * .05);
+        return (emp2->sales_amount * .2) + 50000 + (emp2->sales_amount * .05);
     }
     else
     {
-        return (s_emp->sales_amount * .2) + 50000;
+        return (emp2->sales_amount * .2) + 50000;
     }
 }
 
@@ -113,11 +127,6 @@ void Construct_Senior(struct SeniorSalesman* s_emp, int s_age, double s_sales)
     s_emp->vtable = Vtable_Senior;
 }
 
-//Vtable initializations
-
-void* Vtable_Hourly[] = { Speak_Hourly, GetPay_Hourly };
-void* Vtable_Commission[] = { Speak_Commission, GetPay_Commission };
-void* Vtable_Senior[] = { Speak_Commission, GetPay_Senior };
 
 int main()
 {
@@ -131,7 +140,7 @@ int main()
         struct HourlyEmployee* hr = (struct HourlyEmployee*) malloc(sizeof(struct HourlyEmployee));
         printf("How old is employee? ");
         scanf_s("%d", &age);
-        printf("What is the employee's pay rate? ");
+        printf("What is the employee's pay rate? $");
         double pay;
         scanf_s("%lf", &pay);
         printf("What is the employee's hours? ");
@@ -147,7 +156,7 @@ int main()
         printf("How old is commission employee? ");
         scanf_s("%d", &age);
         double sales;
-        printf("What is the commission employee's sales? ");
+        printf("What is the commission employee's sales? $");
         scanf_s("%lf", &sales);
         Construct_Commission(&cm, age, sales);
         emp = &cm;
@@ -159,11 +168,11 @@ int main()
         printf("How old is senior employee? ");
         scanf_s("%d", &age);
         double sales;
-        printf("What is the senior employee's sales? ");
+        printf("What is the senior employee's sales? $");
         scanf_s("%lf", &sales);
         Construct_Senior(&snr, age, sales);
         emp = &snr;
-        ((void (*)(struct Employee*))Vtable_Commission[0])((struct Employee*)&emp);
+        ((void (*)(struct Employee*))Vtable_Senior[0])((struct Employee*)&emp);
     }
     else
     {

@@ -49,31 +49,35 @@ void Speak_Commission(struct Employee* emp);
 
 double GetPay_Hourly(struct Employee* emp)
 {
-    return emp->hours * emp->hourly_rate;
+    struct HourlyEmployee* emp2;
+    emp2 = (struct HourlyEmployee*)&emp;
+    return emp2->hours * emp2->hourly_rate;
 }
 
 double GetPay_Commission(struct Employee* emp)
 {
-    return (emp->sales_amount * .1) + 40000;
+    struct CommissionEmployee* emp2;
+    emp2 = (struct CommissionEmployee*)&emp;
+    return (emp2->sales_amount * .1) + 40000;
 }
 
 void Speak_Hourly(struct Employee* emp) 
 {
-    struct HourlyEmployee* emp2;
+    struct Employee* emp2;
     emp2 = (struct HourlyEmployee*)&emp;
-    printf("Employee made %.2f dollars", GetPay_Hourly(&emp2));
+    printf("Employee made $%.2f ", GetPay_Hourly(&emp2));
 }
 
 void Speak_Commission(struct Employee* emp)
 {
     struct Employee* emp2;
-    emp2 = (struct CommisionEmployee*)&emp;
-    printf("Employee made %.2f dollars", GetPay_Commission(&emp2));
+    emp2 = (struct CommissionEmployee*)&emp;
+    printf("Employee made $%.2f ", GetPay_Commission(&emp2));
 }
 
 void Construct_Hourly(struct HourlyEmployee* h_emp, int h_age, double h_rate, double h_hours)
 {
-    h_emp->age = h_age;
+    h_emp->age = &h_age;
     h_emp->hourly_rate = h_rate;
     h_emp->hours = h_hours;
     h_emp->vtable = Vtable_Hourly;
@@ -140,10 +144,10 @@ int main()
     else if (strcmp(input, "commission employee\0") == 0 || strcmp(input, "2\n\0") == 0)
     {
         struct CommissionEmployee* cm = (struct CommissionEmployee*)malloc(sizeof(struct CommissionEmployee));
-        printf("How old is employee? ");
+        printf("How old is commission employee? ");
         scanf_s("%d", &age);
         double sales;
-        printf("What is the employee's sales? ");
+        printf("What is the commission employee's sales? ");
         scanf_s("%lf", &sales);
         Construct_Commission(&cm, age, sales);
         emp = &cm;
@@ -152,10 +156,10 @@ int main()
     else if(strcmp(input, "senior employee\0") == 0 || strcmp(input, "3\n\0") == 0)
     {
         struct SeniorSalesman* snr = (struct SeniorSalesman*)malloc(sizeof(struct SeniorSalesman));
-        printf("How old is employee? ");
+        printf("How old is senior employee? ");
         scanf_s("%d", &age);
         double sales;
-        printf("What is the employee's sales? ");
+        printf("What is the senior employee's sales? ");
         scanf_s("%lf", &sales);
         Construct_Senior(&snr, age, sales);
         emp = &snr;

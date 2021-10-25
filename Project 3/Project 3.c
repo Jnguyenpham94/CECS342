@@ -50,15 +50,16 @@ void Construct_Senior(struct SeniorSalesman* s_emp, int s_age, double s_sales);
 
 //Vtable declarations
 
-void* Vtable_Hourly[2];
-void* Vtable_Commission[2];
-void* Vtable_Senior[2];
+void* Vtable_Hourly[];
+void* Vtable_Commission[];
+void* Vtable_Senior[];
 
 //Vtable initializations
 
 void* Vtable_Hourly[] = { Speak_Hourly, GetPay_Hourly };
 void* Vtable_Commission[] = { Speak_Commission, GetPay_Commission };
 void* Vtable_Senior[] = { Speak_Senior, GetPay_Senior };
+//void* Vtable_Senior[] = { Speak_Commission, GetPay_Senior };
 
 double GetPay_Hourly(struct Employee* emp)
 {
@@ -78,7 +79,7 @@ void Speak_Hourly(struct Employee* emp)
 {
     struct Employee* emp2;
     emp2 = (struct HourlyEmployee*)&emp;
-    printf("Employee made $%.2f ", GetPay_Hourly(&emp2));
+    printf("Employee made $%.2f ", GetPay_Hourly(&emp));
 }
 
 void Speak_Commission(struct Employee* emp)
@@ -143,8 +144,9 @@ int main()
     char input[25];
     int age;
     fgets(input, sizeof(input), stdin);
-    if (strcmp(input, "hourly employee\n\0") == 0 || strcmp(input, "1\n\0") == 0)
+    if (strcmp(input, "hourly employee\n\0") == 0 || strcmp(input, "1\n\0") == 0) //if statements allow for number choice or lowercase of words
     {
+        printf("Hourly Employee: \n");
         struct HourlyEmployee* hr = (struct HourlyEmployee*) malloc(sizeof(struct HourlyEmployee));
         printf("How old is employee? ");
         scanf_s("%d", &age);
@@ -154,29 +156,31 @@ int main()
         printf("What is the employee's hours? ");
         double hours;
         scanf_s("%lf", &hours);
-        Construct_Hourly(&hr, age, pay, hours);
+        Construct_Hourly(&hr, age, pay, hours); //losing value after construct... hmm?
         emp = (struct Employee*)&hr;
         ((void (*)(struct Employee*))Vtable_Hourly[0])((struct Employee*)&emp);
     }
     else if (strcmp(input, "commission employee\0") == 0 || strcmp(input, "2\n\0") == 0)
     {
+        printf("Commission Employee: \n");
         struct CommissionEmployee* cm = (struct CommissionEmployee*)malloc(sizeof(struct CommissionEmployee));
         printf("How old is commission employee? ");
         scanf_s("%d", &age);
         double sales;
         printf("What is the commission employee's sales? $");
         scanf_s("%lf", &sales);
-        Construct_Commission(&cm, age, sales);
+        Construct_Commission(&cm, age, sales); //losing value after construct... hmm here too?
         emp = (struct Employee*)&cm;
         ((void (*)(struct Employee*))Vtable_Commission[0])((struct Employee*)&emp);
     }
     else if(strcmp(input, "senior employee\0") == 0 || strcmp(input, "3\n\0") == 0)
     {
+        printf("Senior Salesman: \n");
         struct SeniorSalesman* snr = (struct SeniorSalesman*)malloc(sizeof(struct SeniorSalesman));
         printf("How old is senior employee? ");
         scanf_s("%d", &age);
         double sales;
-        printf("What is the senior employee's sales? $");
+        printf("What is the senior employee's sales? $"); //losing value after construct... hmm here too?
         scanf_s("%lf", &sales);
         Construct_Senior(&snr, age, sales);
         emp = (struct Employee*)&snr;

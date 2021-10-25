@@ -61,32 +61,24 @@ void* Vtable_Commission[] = { Speak_Commission, GetPay_Commission };
 void* Vtable_Senior[] = { Speak_Senior, GetPay_Senior };
 //void* Vtable_Senior[] = { Speak_Commission, GetPay_Senior };
 
-double GetPay_Hourly(struct Employee* emp)
+double GetPay_Hourly(struct HourlyEmployee* emp) //works with HourlyEmployee but values gets lost with Employee
 {
-    struct HourlyEmployee* emp2;
-    emp2 = (struct HourlyEmployee*)&emp;
-    return emp2->hours * emp2->hourly_rate; // 90 * 9.50 = 855
+    return emp->hours * emp->hourly_rate; // 90 * 9.50 = 855
 }
 
-double GetPay_Commission(struct Employee* emp)
+double GetPay_Commission(struct CommissionEmployee* emp)
 {
-    struct CommissionEmployee* emp2;
-    emp2 = (struct CommissionEmployee*)&emp;
-    return (emp2->sales_amount * .1) + 40000; // 80,000 *.1 + 40,000 = 48,000
+    return (emp->sales_amount * .1) + 40000; // 80,000 *.1 + 40,000 = 48,000
 }
 
-void Speak_Hourly(struct Employee* emp) 
+void Speak_Hourly(struct HourlyEmployee* emp) 
 {
-    struct Employee* emp2;
-    emp2 = (struct HourlyEmployee*)&emp;
-    printf("Employee made $%.2f ", GetPay_Hourly(&emp));
+    printf("Employee made $%.2f ", GetPay_Hourly(emp));
 }
 
-void Speak_Commission(struct Employee* emp)
+void Speak_Commission(struct CommissionEmployee* emp)
 {
-    struct Employee* emp2;
-    emp2 = (struct CommissionEmployee*)&emp;
-    printf("Employee made $%.2f ", GetPay_Commission(&emp2));
+    printf("Employee made $%.2f ", GetPay_Commission(emp));
 }
 
 void Construct_Hourly(struct HourlyEmployee* h_emp, int h_age, double h_rate, double h_hours)
@@ -106,24 +98,20 @@ void Construct_Commission(struct CommissionEmployee* c_emp, int c_age, double c_
     c_emp->vtable = Vtable_Commission;
 }
 
-void Speak_Senior(struct Employee* emp)
+void Speak_Senior(struct SeniorSalesman* emp)
 {
-    struct Employee* emp2;
-    emp2 = (struct SenorSalesman*)&emp;
-    printf("Employee made $%.2f ", GetPay_Senior(&emp2));
+    printf("Employee made $%.2f ", GetPay_Senior(emp));
 }
 
-double GetPay_Senior(struct Employee* emp)
+double GetPay_Senior(struct SeniorSalesman* emp)
 {
-    struct SeniorSalesman* emp2;
-    emp2 = (struct SeniorSalesman*)&emp;
-    if (emp2->age >= 40)
+    if (emp->age >= 40)
     {
-        return (emp2->sales_amount * .2) + 50000 + (emp2->sales_amount * .05); // (100,000 *.2) + 50,000 + (100,000 * .05) = 75,000
+        return (emp->sales_amount * .2) + 50000 + (emp->sales_amount * .05); // (100,000 *.2) + 50,000 + (100,000 * .05) = 75,000
     }
     else
     {
-        return (emp2->sales_amount * .2) + 50000; // (100,000 *.2) + 50,000 = 70,000
+        return (emp->sales_amount * .2) + 50000; // (100,000 *.2) + 50,000 = 70,000
     }
 }
 
@@ -156,9 +144,8 @@ int main()
         printf("What is the employee's hours? ");
         double hours;
         scanf_s("%lf", &hours);
-        Construct_Hourly(&hr, age, pay, hours); //losing value after construct... hmm?
-        emp = (struct Employee*)&hr;
-        ((void (*)(struct Employee*))Vtable_Hourly[0])((struct Employee*)&emp);
+        Construct_Hourly(hr, age, pay, hours); //losing value after construct... hmm? weird &hr loses the values but hr does not
+        ((void (*)(struct Employee*))Vtable_Hourly[0])((struct Employee*)hr);
     }
     else if (strcmp(input, "commission employee\0") == 0 || strcmp(input, "2\n\0") == 0)
     {
@@ -169,9 +156,8 @@ int main()
         double sales;
         printf("What is the commission employee's sales? $");
         scanf_s("%lf", &sales);
-        Construct_Commission(&cm, age, sales); //losing value after construct... hmm here too?
-        emp = (struct Employee*)&cm;
-        ((void (*)(struct Employee*))Vtable_Commission[0])((struct Employee*)&emp);
+        Construct_Commission(cm, age, sales); //losing value after construct... hmm here 2?
+        ((void (*)(struct Employee*))Vtable_Commission[0])((struct Employee*)cm);
     }
     else if(strcmp(input, "senior employee\0") == 0 || strcmp(input, "3\n\0") == 0)
     {
@@ -180,11 +166,10 @@ int main()
         printf("How old is senior employee? ");
         scanf_s("%d", &age);
         double sales;
-        printf("What is the senior employee's sales? $"); //losing value after construct... hmm here too?
+        printf("What is the senior employee's sales? $"); 
         scanf_s("%lf", &sales);
-        Construct_Senior(&snr, age, sales);
-        emp = (struct Employee*)&snr;
-        ((void (*)(struct Employee*))Vtable_Senior[0])((struct Employee*)&emp);
+        Construct_Senior(snr, age, sales); //losing value after construct... hmm here 3?
+        ((void (*)(struct Employee*))Vtable_Senior[0])((struct Employee*)snr);
     }
     else
     {

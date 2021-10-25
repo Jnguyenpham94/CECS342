@@ -7,6 +7,27 @@ type AccountStatus =
 
 type BankAccount = {name: string; account: AccountStatus; creditLimit: int option}
 
+let isWealthy bankAccount =
+    ()
+
+let findOverdrawn bankAccount =
+    ()
+
+let largerAmount a b =
+    ()
+
+let accountAmounts bankAccounts =
+    ()
+
+let amountsWhere =
+    ()
+
+let combineAccounts accountStatus =
+    ()
+
+let wealthiestAccount bankAccount =
+    ()
+
 [<EntryPoint>]
 let main argv =
     //let m_burns = {name = "Montgomery Burns"; account = Balance 100000; creditLimit = Some 10000}

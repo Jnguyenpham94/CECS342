@@ -58,8 +58,7 @@ void* Vtable_Senior[];
 
 void* Vtable_Hourly[] = { Speak_Hourly, GetPay_Hourly };
 void* Vtable_Commission[] = { Speak_Commission, GetPay_Commission };
-void* Vtable_Senior[] = { Speak_Senior, GetPay_Senior };
-//void* Vtable_Senior[] = { Speak_Commission, GetPay_Senior };
+void* Vtable_Senior[] = { Speak_Commission, GetPay_Senior };
 
 double GetPay_Hourly(struct Employee* emp)
 {
@@ -75,18 +74,21 @@ double GetPay_Commission(struct Employee* emp)
     return (emp2->sales_amount * .1) + 40000; // 80,000 *.1 + 40,000 = 48,000
 }
 
+//((void (*)(struct Employee*))Vtable_Senior[0])((struct Employee*)emp)
 void Speak_Hourly(struct Employee* emp) //values get lost here!!!... hmmm
 {
     struct HourlyEmployee* emp2;
     emp2 = (struct HourlyEmployee*)emp;
-    printf("Employee made $%.2f ", GetPay_Hourly(emp2)); //tried calling vtable array here got error(red underline at first parentheses): ((void (*)(struct Employee*))Vtable_Hourly[1])((struct Employee*)&emp)
+    double (*test)(struct Employee*) = emp2->vtable[1];
+    printf("Employee made $%.2f ", test(emp2)); //trying to call emp2->vtable[1]
 }
 
 void Speak_Commission(struct Employee* emp) //values get lost here too!!!... hmmm
 {
     struct Employee* emp2;
     emp2 = (struct CommissionEmployee*)emp;
-    printf("Employee made $%.2f ", GetPay_Commission(emp2)); //tried calling vtable array here got error(red underline at first parentheses): ((void (*)(struct Employee*))Vtable_Commission[1])((struct Employee*)&emp)
+    double (*test)(struct Employee*) = emp2->vtable[1];
+    printf("Employee made $%.2f ", test(emp2)); //tried calling vtable array here got error(red underline at first parentheses): ((void (*)(struct Employee*))Vtable_Commission[1])((struct Employee*)&emp)
 }
 
 void Construct_Hourly(struct HourlyEmployee* h_emp, int h_age, double h_rate, double h_hours)
@@ -104,13 +106,6 @@ void Construct_Commission(struct CommissionEmployee* c_emp, int c_age, double c_
     c_emp->hours = 0;
     c_emp->sales_amount = c_sales;
     c_emp->vtable = Vtable_Commission;
-}
-
-void Speak_Senior(struct Employee* emp) //values get lost here three!!!... hmmm
-{
-    struct Employee* emp2;
-    emp2 = (struct SenorSalesman*)emp;
-    printf("Employee made $%.2f ", GetPay_Senior(emp2)); //tried calling vtable array here got error(red underline at first parentheses): ((void (*)(struct Employee*))Vtable_Senior[1])((struct Employee*)&emp)
 }
 
 double GetPay_Senior(struct Employee* emp)

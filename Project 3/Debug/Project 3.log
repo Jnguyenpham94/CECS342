@@ -1,6 +1,5 @@
 ﻿  Project 3.c
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(82,54): warning C4133: 'function': incompatible types - from 'HourlyEmployee *' to 'Employee *'
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(88,43): warning C4133: '=': incompatible types - from 'CommissionEmployee *' to 'Employee *'
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(112,38): warning C4133: '=': incompatible types - from 'SenorSalesman *' to 'Employee *'
-C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(147,15): warning C4013: 'strcmp' undefined; assuming extern returning int
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(83,45): warning C4133: 'function': incompatible types - from 'HourlyEmployee *' to 'Employee *'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(89,43): warning C4133: '=': incompatible types - from 'CommissionEmployee *' to 'Employee *'
+C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Project 3.c(142,15): warning C4013: 'strcmp' undefined; assuming extern returning int
   Project 3.vcxproj -> C:\Users\nguye\Documents\GitHub\CECS342\Project 3\Debug\Project 3.exe

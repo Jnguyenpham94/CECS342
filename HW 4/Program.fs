@@ -30,9 +30,9 @@ let wealthiestAccount bankAccount =
 
 [<EntryPoint>]
 let main argv =
-    //let m_burns = {name = "Montgomery Burns"; account = Balance 100000; creditLimit = Some 10000}
-    //let bob = {name = "Robert Dugalle"; account = Empty 0; creditLimit = Some 200}
     let neal = {name = "Neal Terrell"; account = Balance 100; creditLimit = None}
-    let dave = {name = "Dave Davidson"; account = OverDrawn 200; creditLimit = Some 0}
-    let tom = {name = "Tom Thompson"; account = Balance 100; creditLimit = Some 500}
+    let dave = {name = "Dave Davidson"; account = OverDrawn 200; creditLimit = None}
+    let tom = {name = "Tom Thompson"; account = Balance 200000; creditLimit = Some 500}
+    let jackie = {name = "Jackie Jackson"; account = Empty 0; creditLimit = None}
+
     0

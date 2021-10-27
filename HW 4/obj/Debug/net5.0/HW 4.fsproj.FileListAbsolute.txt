@@ -23,4 +23,3 @@ C:\Users\nguye\Documents\GitHub\CECS342\HW 4\obj\Debug\net5.0\HW 4.AssemblyInfo.
 C:\Users\nguye\Documents\GitHub\CECS342\HW 4\obj\Debug\net5.0\HW 4.dll
 C:\Users\nguye\Documents\GitHub\CECS342\HW 4\obj\Debug\net5.0\HW 4.pdb
 C:\Users\nguye\Documents\GitHub\CECS342\HW 4\obj\Debug\net5.0\HW 4.genruntimeconfig.cache
-C:\Users\nguye\Documents\GitHub\CECS342\HW 4\obj\Debug\net5.0\HW 4.fsproj.AssemblyReference.cache

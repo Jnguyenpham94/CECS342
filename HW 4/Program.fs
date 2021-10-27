@@ -12,7 +12,7 @@ type BankAccount = {name: string; account: AccountStatus; creditLimit: int optio
 //PREDICATE
 let isWealthy bankAccount =
     match bankAccount.account with
-    |Balance e -> if e > 100000 then
+    |Balance b -> if b > 100000 then
                     true
                   else
                     false
@@ -23,10 +23,12 @@ let isWealthy bankAccount =
 //HINT: List.filter
 //PREDICATE
 let findOverdrawn bankAccount =
-    ()
+    bankAccount |> List.filter (fun a -> match a.account with
+                                    | OverDrawn o-> true
+                                    | _ -> false)
 
 //2 BankAccounts
-//RETURNS whichever has larger $. OverDrawn : negative $ Empty: 0
+//RETURNS whichever has larger $. OverDrawn : negative $; Empty: 0
 //HINT: write helper to convert account to int
 //PREDICATE
 let largerAmount a b =
@@ -62,5 +64,6 @@ let main argv =
 
     isWealthy neal |> printfn "%O" //false
     isWealthy tom |> printfn "%O" //true
+    findOverdrawn [neal; dave; tom] |> printfn "%O" //[{name = "Dave Davidson"; account = Overdrawn 200; creditLimit = None}]
 
     0

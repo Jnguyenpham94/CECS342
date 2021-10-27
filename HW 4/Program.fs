@@ -24,15 +24,29 @@ let isWealthy bankAccount =
 //PREDICATE
 let findOverdrawn bankAccount =
     bankAccount |> List.filter (fun a -> match a.account with
-                                    | OverDrawn o-> true
-                                    | _ -> false)
+                                            | OverDrawn o-> true
+                                            | _ -> false)
+
+//Helper largerAmount
+//converts account amount to int Empty = 0; Balance = pos; OverDrawn = neg
+let convertInt a =
+    match a.account with
+    |Empty e-> 0
+    |Balance b-> b
+    |OverDrawn o-> o * (-1)
+
 
 //2 BankAccounts
 //RETURNS whichever has larger $. OverDrawn : negative $; Empty: 0
 //HINT: write helper to convert account to int
 //PREDICATE
 let largerAmount a b =
-    ()
+    let testA = convertInt a
+    let testB = convertInt b
+    if testA > testB then
+        a
+    else
+        b
 
 //list of BankAccounts
 //RETURNS new list containing $ 
@@ -65,5 +79,6 @@ let main argv =
     isWealthy neal |> printfn "%O" //false
     isWealthy tom |> printfn "%O" //true
     findOverdrawn [neal; dave; tom] |> printfn "%O" //[{name = "Dave Davidson"; account = Overdrawn 200; creditLimit = None}]
+    largerAmount neal dave |> printfn "Larger amount:\n%O" //{name = "Neal Terrell"; account = Balance 100; creditLimit = None}
 
     0

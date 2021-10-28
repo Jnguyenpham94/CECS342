@@ -58,6 +58,7 @@ let accountAmounts bankAccounts =
 //RETURNS new list of $ amounts of accounts that satisfy(true) the predicate
 let amountsWhere predicate bankAccounts =
     ()
+    //bankAccounts |> List.filter (fun a -> List.map (fun b -> predicate b))
 
 //list of AccountStatus
 //RETURNS sum of $ amounts: Empty is 0; OverDrawn with abs of $; Balance other
@@ -78,9 +79,9 @@ let main argv =
 
     isWealthy neal |> printfn "%O" //false
     isWealthy tom |> printfn "%O" //true
-    findOverdrawn [neal; dave; tom] |> printfn "%O" //[{name = "Dave Davidson"; account = Overdrawn 200; creditLimit = None}]
+    findOverdrawn [neal; dave; tom] |> printfn "%A" //[{name = "Dave Davidson"; account = Overdrawn 200; creditLimit = None}]
     largerAmount neal dave |> printfn "Larger amount:\n%O" //{name = "Neal Terrell"; account = Balance 100; creditLimit = None}
-    accountAmounts [neal; dave; tom; jackie] |> printfn "Account amounts:\n%O"
+    accountAmounts [neal; dave; tom; jackie] |> printfn "Account amounts:\n%A"
     //amountsWhere isWealthy [neal; dave; tom; jackie] |> printfn "%O"
 
     0

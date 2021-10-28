@@ -52,7 +52,7 @@ let largerAmount a b =
 //RETURNS new list containing $ 
 //HINT: List.map
 let accountAmounts bankAccounts =
-    ()
+    bankAccounts |> List.map (fun a -> convertInt a)
 
 //predicate of tpe (BankAccount->bool), list of BankAccounts
 //RETURNS new list of $ amounts of accounts that satisfy(true) the predicate
@@ -80,5 +80,7 @@ let main argv =
     isWealthy tom |> printfn "%O" //true
     findOverdrawn [neal; dave; tom] |> printfn "%O" //[{name = "Dave Davidson"; account = Overdrawn 200; creditLimit = None}]
     largerAmount neal dave |> printfn "Larger amount:\n%O" //{name = "Neal Terrell"; account = Balance 100; creditLimit = None}
+    accountAmounts [neal; dave; tom; jackie] |> printfn "Account amounts:\n%O"
+    //amountsWhere isWealthy [neal; dave; tom; jackie] |> printfn "%O"
 
     0

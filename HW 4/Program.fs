@@ -57,8 +57,7 @@ let accountAmounts bankAccounts =
 //predicate of tpe (BankAccount->bool), list of BankAccounts
 //RETURNS new list of $ amounts of accounts that satisfy(true) the predicate
 let amountsWhere predicate bankAccounts =
-    ()
-    //bankAccounts |> List.filter (fun a -> List.map (fun b -> predicate b))
+    bankAccounts |> List.filter(fun a ->predicate a) |> List.map (fun b -> convertInt b)
 
 //list of AccountStatus
 //RETURNS sum of $ amounts: Empty is 0; OverDrawn with abs of $; Balance other
@@ -82,6 +81,6 @@ let main argv =
     findOverdrawn [neal; dave; tom] |> printfn "%A" //[{name = "Dave Davidson"; account = Overdrawn 200; creditLimit = None}]
     largerAmount neal dave |> printfn "Larger amount:\n%O" //{name = "Neal Terrell"; account = Balance 100; creditLimit = None}
     accountAmounts [neal; dave; tom; jackie] |> printfn "Account amounts:\n%A"
-    //amountsWhere isWealthy [neal; dave; tom; jackie] |> printfn "%O"
+    amountsWhere isWealthy [neal; dave; tom; jackie] |> printfn "Amount(s) where predicate:\n %A"
 
     0

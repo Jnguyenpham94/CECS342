@@ -88,8 +88,9 @@ let combineAccounts accountStatus =
 //list of BankAccounts
 //RETURNS largest $ BankAccount obj; if 2 have same amount RETURNS first one
 //HINT: List.reduce or List.fold. Do not assume that every account has a different money amount. Do not map the accounts into money amounts, find the largest of those, and then go back to try and find the account with that money amount. That is way too much work. Consider how largerAmount can help.
-let wealthiestAccount bankAccount =
-    ()
+let wealthiestAccount bankAccounts =
+    bankAccounts |> List.reduce(fun a b -> largerAmount a b)
+
 
 [<EntryPoint>]
 let main argv =
@@ -107,5 +108,6 @@ let main argv =
     combineAccounts [Balance 100; OverDrawn 200; Empty 0; Balance 1100; Balance 100; OverDrawn 300] |> printfn "Combine accounts result is : %O" //Balance 800
     combineAccounts [Balance 100; OverDrawn 100; Empty 0] |> printfn "Combine accounts result is : %O" //Empty 0
     combineAccounts [Balance 200; OverDrawn 100; Empty 0; OverDrawn 300] |> printfn "Combine accounts result is : %O" //OverDrawn 200
+    wealthiestAccount [neal; dave; tom; jackie] |> printfn "Wealthiest Account: \n%A" //{name = "Tom Thompson"; account = Balance 200000; creditLimit = 500}
 
     0

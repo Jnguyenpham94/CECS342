@@ -28,13 +28,30 @@ let findOverdrawn bankAccount =
                                             | _ -> false)
 
 //Helper largerAmount
-//converts account amount to int Empty = 0; Balance = pos; OverDrawn = neg
+//converts account amount to int: Empty = 0; Balance = pos; OverDrawn = neg
 let convertInt a =
     match a.account with
     |Empty e-> 0
     |Balance b-> b
     |OverDrawn o-> o * (-1)
 
+//Helper combineAccounts
+//converts accountStatus -> int
+let convertAccountStatus a =
+    match a with
+    |Empty e-> 0
+    |Balance b-> b
+    |OverDrawn o-> o * (-1)
+
+//Helper combineAccounts
+//converts int -> AccountStatus #
+let convertIntAccount a =
+    if a > 0 then
+        Balance a
+    elif a < 0 then
+        OverDrawn (abs a)
+    else
+        Empty a
 
 //2 BankAccounts
 //RETURNS whichever has larger $. OverDrawn : negative $; Empty: 0
@@ -57,15 +74,20 @@ let accountAmounts bankAccounts =
 //predicate of tpe (BankAccount->bool), list of BankAccounts
 //RETURNS new list of $ amounts of accounts that satisfy(true) the predicate
 let amountsWhere predicate bankAccounts =
-    bankAccounts |> List.filter(fun a ->predicate a) |> List.map (fun b -> convertInt b)
+    bankAccounts |> List.filter(fun a -> predicate a) |> List.map (fun b -> convertInt b)
 
 //list of AccountStatus
 //RETURNS sum of $ amounts: Empty is 0; OverDrawn with abs of $; Balance other
+//HINT: List.map, List.reduce, then some simple logic.
+//Or if you're really slick, write a helper function to combine two account statuses, then reduce with that function.
+//Accountstatus list-> int list -> int -> AccountStatus 
 let combineAccounts accountStatus =
-    ()
+    accountStatus |> List.map(fun a -> convertAccountStatus a) |> List.reduce(+) |> convertIntAccount
+
 
 //list of BankAccounts
 //RETURNS largest $ BankAccount obj; if 2 have same amount RETURNS first one
+//HINT: List.reduce or List.fold. Do not assume that every account has a different money amount. Do not map the accounts into money amounts, find the largest of those, and then go back to try and find the account with that money amount. That is way too much work. Consider how largerAmount can help.
 let wealthiestAccount bankAccount =
     ()
 
@@ -82,5 +104,8 @@ let main argv =
     largerAmount neal dave |> printfn "Larger amount:\n%O" //{name = "Neal Terrell"; account = Balance 100; creditLimit = None}
     accountAmounts [neal; dave; tom; jackie] |> printfn "Account amounts:\n%A"
     amountsWhere isWealthy [neal; dave; tom; jackie] |> printfn "Amount(s) where predicate:\n %A"
+    combineAccounts [Balance 100; OverDrawn 200; Empty 0; Balance 1100; Balance 100; OverDrawn 300] |> printfn "Combine accounts result is : %O" //Balance 800
+    combineAccounts [Balance 100; OverDrawn 100; Empty 0] |> printfn "Combine accounts result is : %O" //Empty 0
+    combineAccounts [Balance 200; OverDrawn 100; Empty 0; OverDrawn 300] |> printfn "Combine accounts result is : %O" //OverDrawn 200
 
     0

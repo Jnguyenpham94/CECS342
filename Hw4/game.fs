@@ -81,6 +81,7 @@ let cardToString card =
     |11 -> kind <- "Jack"
     |12 -> kind <- "Queen"
     |13 -> kind <- "King"
+    |_ -> kind <- "Fail"
 
     // "%A" can print any kind of object, and automatically converts a union (like CardSuit)
     // into a simple string.
@@ -93,7 +94,7 @@ let handToString hand =
     // The string consists of the results of cardToString when called on each Card in the hand (a Card list),
     // separated by commas. You need to build this string yourself; the built-in "toString" methods for lists
     // insert semicolons and square brackets that I do not want.
-    sprintf "%A" hand
+    hand |> List.map(fun a -> cardToString a + ", ")
 
     // Hint: transform each card in the hand to its cardToString representation. Then read the documentation
     // on String.concat.

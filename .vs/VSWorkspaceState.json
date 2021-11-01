@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Blackjack",
+    "\\HW 3",
     "\\HW 4"
   ],
-  "SelectedNode": "\\HW 4\\Program.fs",
+  "SelectedNode": "\\Blackjack\\Game.fs",
   "PreviewInSolutionExplorer": false
 }

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "A/zBkQlxeA/J0UimaLtvfFI0MT5CNXrwBp4EjPGj6u8WpPaMCxU+W7b1mkaxCDU5GgD5A4uLHcTaSrOL8vjtjQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\nguye\\Documents\\GitHub\\CECS342\\Hw4\\Project 4.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\nguye\\.nuget\\packages\\fsharp.core\\5.0.0\\fsharp.core.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

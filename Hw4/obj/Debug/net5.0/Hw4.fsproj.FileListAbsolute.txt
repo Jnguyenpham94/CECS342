@@ -1,0 +1,3 @@
+C:\Users\nguye\Documents\GitHub\CECS342\Hw4\obj\Debug\net5.0\Hw4.fsproj.AssemblyReference.cache
+C:\Users\nguye\Documents\GitHub\CECS342\Hw4\obj\Debug\net5.0\Hw4.AssemblyInfoInputs.cache
+C:\Users\nguye\Documents\GitHub\CECS342\Hw4\obj\Debug\net5.0\Hw4.AssemblyInfo.fs

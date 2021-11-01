@@ -1,3 +1,30 @@
 C:\Users\nguye\Documents\GitHub\CECS342\Hw4\obj\Debug\net5.0\Project 4.fsproj.AssemblyReference.cache
 C:\Users\nguye\Documents\GitHub\CECS342\Hw4\obj\Debug\net5.0\Project 4.AssemblyInfoInputs.cache
 C:\Users\nguye\Documents\GitHub\CECS342\Hw4\obj\Debug\net5.0\Project 4.AssemblyInfo.fs
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\Project 4.exe
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\Project 4.deps.json
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\Project 4.runtimeconfig.json
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\Project 4.runtimeconfig.dev.json
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\Project 4.dll
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\Project 4.pdb
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\FSharp.Core.dll
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\cs\FSharp.Core.resources.dll
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\de\FSharp.Core.resources.dll
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\es\FSharp.Core.resources.dll
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\fr\FSharp.Core.resources.dll
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\it\FSharp.Core.resources.dll
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\ja\FSharp.Core.resources.dll
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\ko\FSharp.Core.resources.dll
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\pl\FSharp.Core.resources.dll
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\pt-BR\FSharp.Core.resources.dll
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\ru\FSharp.Core.resources.dll
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\tr\FSharp.Core.resources.dll
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\zh-Hans\FSharp.Core.resources.dll
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\zh-Hant\FSharp.Core.resources.dll
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.fsproj.AssemblyReference.cache
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.AssemblyInfoInputs.cache
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.AssemblyInfo.fs
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.fsproj.CopyComplete
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.dll
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.pdb
+C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.genruntimeconfig.cache

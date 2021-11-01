@@ -124,7 +124,10 @@ let handTotal hand =
 
     // TODO: modify the next line to count the number of aces in the hand.
     // Hint: List.filter and List.length. 
-    let numAces = hand |> List.length// - hand |> List.filter(fun a -> match a.)
+    //filter list by 11 "ace" value then count number of values of filtered list
+    let numAces = hand |> List.filter(fun a -> match cardValue a with
+                                                |11 -> true
+                                                |_ -> false)|>List.length
 
     // Adjust the sum if it exceeds 21 and there are aces.
     if sum <= 21 then

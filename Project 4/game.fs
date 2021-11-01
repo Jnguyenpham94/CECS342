@@ -94,7 +94,7 @@ let handToString hand =
     // The string consists of the results of cardToString when called on each Card in the hand (a Card list),
     // separated by commas. You need to build this string yourself; the built-in "toString" methods for lists
     // insert semicolons and square brackets that I do not want.
-    hand |> List.map(fun a -> cardToString a + ", ")
+    hand |> List.map(fun a -> cardToString a) |> String.concat ", "
 
     // Hint: transform each card in the hand to its cardToString representation. Then read the documentation
     // on String.concat.
@@ -120,11 +120,11 @@ let cardValue card =
 let handTotal hand =
     // TODO: modify the next line to calculate the sum of the card values of each
     // card in the list. Hint: List.map and List.sum. (Or, if you're slick, List.sumBy)
-    let sum = 0
+    let sum = hand |> List.sumBy(fun s -> cardValue s)
 
     // TODO: modify the next line to count the number of aces in the hand.
     // Hint: List.filter and List.length. 
-    let numAces = 0
+    let numAces = hand |> List.length// - hand |> List.filter(fun a -> match a.)
 
     // Adjust the sum if it exceeds 21 and there are aces.
     if sum <= 21 then

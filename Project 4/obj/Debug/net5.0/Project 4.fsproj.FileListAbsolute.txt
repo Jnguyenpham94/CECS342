@@ -21,10 +21,8 @@ C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\ru\FSharp.Cor
 C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\tr\FSharp.Core.resources.dll
 C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\zh-Hans\FSharp.Core.resources.dll
 C:\Users\nguye\Documents\GitHub\CECS342\Project 4\bin\Debug\net5.0\zh-Hant\FSharp.Core.resources.dll
-C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.fsproj.AssemblyReference.cache
 C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.AssemblyInfoInputs.cache
 C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.AssemblyInfo.fs
-C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.fsproj.CopyComplete
 C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.dll
 C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.pdb
 C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.genruntimeconfig.cache

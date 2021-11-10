@@ -66,23 +66,23 @@ let cardToString card =
     // TODO: replace the following line with logic that converts the card's kind to a string.
     // Reminder: a 1 means "Ace", 11 means "Jack", 12 means "Queen", 13 means "King".
     // A "match" statement will be necessary. (The next function below is a hint.)
-    let mutable kind = "None"
-    match card.kind with
-    |1 -> kind <- "Ace"
-    |2 -> kind <- "Two"
-    |3 -> kind <- "Three"
-    |4 -> kind <- "Four"
-    |5 -> kind <- "Five"
-    |6 -> kind <- "Six"
-    |7 -> kind <- "Seven"
-    |8 -> kind <- "Eight"
-    |9 -> kind <- "Nine"
-    |10 -> kind <- "Ten"
-    |11 -> kind <- "Jack"
-    |12 -> kind <- "Queen"
-    |13 -> kind <- "King"
-    |_ -> kind <- "Fail"
-
+    //let kind = string card.kind
+    let kind = match card.kind with
+    |1 -> "Ace"
+    |2 -> "Two" 
+    |3 -> "Three"
+    |4 -> "Four"
+    |5 -> "Five" 
+    |6 -> "Six" 
+    |7 -> "Seven"
+    |8 -> "Eight"
+    |9 -> "Nine" 
+    |10 -> "Ten"
+    |11 -> "Jack"
+    |12 -> "Queen"
+    |13 -> "King"
+    |_ -> "FAIL"
+    
     // "%A" can print any kind of object, and automatically converts a union (like CardSuit)
     // into a simple string.
     sprintf "%s of %A" kind card.suit
@@ -98,7 +98,6 @@ let handToString hand =
 
     // Hint: transform each card in the hand to its cardToString representation. Then read the documentation
     // on String.concat.
-
 
     
 // Returns the "value" of a card in a poker hand, where all three "face" cards are worth 10
@@ -350,7 +349,11 @@ let rec interactivePlayerStrategy gameState =
 [<EntryPoint>]
 let main argv =
     // TODO: call manyGames to run 1000 games with a particular strategy.
-
+    let test = {suit = Hearts; kind = 1}
+    let test2 = {suit = Clubs; kind = 1}
+    let test3 = {suit = Clubs; kind = 11}
+    test3 |> cardToString |> printf "%A"
+    //[test; test2; test3] |> handTotal |> printf "%A"
     0 // return an integer exit code
 
 

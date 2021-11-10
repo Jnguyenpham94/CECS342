@@ -63,25 +63,23 @@ let rand = new System.Random()
 
 // Returns a string describing a card.
 let cardToString card =
-    // TODO: replace the following line with logic that converts the card's kind to a string.
     // Reminder: a 1 means "Ace", 11 means "Jack", 12 means "Queen", 13 means "King".
     // A "match" statement will be necessary. (The next function below is a hint.)
-    //let kind = string card.kind
     let kind = match card.kind with
-    |1 -> "Ace"
-    |2 -> "Two" 
-    |3 -> "Three"
-    |4 -> "Four"
-    |5 -> "Five" 
-    |6 -> "Six" 
-    |7 -> "Seven"
-    |8 -> "Eight"
-    |9 -> "Nine" 
-    |10 -> "Ten"
-    |11 -> "Jack"
-    |12 -> "Queen"
-    |13 -> "King"
-    |_ -> "FAIL"
+                |1 -> "Ace"
+                |2 -> "Two" 
+                |3 -> "Three"
+                |4 -> "Four"
+                |5 -> "Five" 
+                |6 -> "Six" 
+                |7 -> "Seven"
+                |8 -> "Eight"
+                |9 -> "Nine" 
+                |10 -> "Ten"
+                |11 -> "Jack"
+                |12 -> "Queen"
+                |13 -> "King"
+                |_ -> "O___O"
     
     // "%A" can print any kind of object, and automatically converts a union (like CardSuit)
     // into a simple string.
@@ -115,13 +113,13 @@ let cardValue card =
 // Find the sum of the card values of each card in the hand. If that sum
 // exceeds 21, and the hand has aces, then some of those aces turn from 
 // a value of 11 to a value of 1, and a new total is computed.
-// TODO: fill in the marked parts of this function.
+// fill in the marked parts of this function.
 let handTotal hand =
-    // TODO: modify the next line to calculate the sum of the card values of each
+    //modify the next line to calculate the sum of the card values of each
     // card in the list. Hint: List.map and List.sum. (Or, if you're slick, List.sumBy)
     let sum = hand |> List.sumBy(fun s -> cardValue s)
 
-    // TODO: modify the next line to count the number of aces in the hand.
+    // modify the next line to count the number of aces in the hand.
     // Hint: List.filter and List.length. 
     //filter list by 11 "ace" value then count number of values of filtered list
     let numAces = hand |> List.filter(fun a -> match cardValue a with
@@ -203,9 +201,9 @@ let hit handOwner gameState =
         // Then update the player's active hands so that the new first hand is head of the list; and the
         //     other (unchanged) active hands follow it.
         // Then construct the new game state with the updated deck and updated player.
-
+        let newPlayerHand = gameState.player
         // TODO: this is just so the code compiles; fix it.
-        gameState
+        {gameState with deck = newDeck; player = newPlayerHand}
 
 
 // Take the dealer's turn by repeatedly taking a single action, hit or stay, until 
@@ -345,15 +343,44 @@ let rec interactivePlayerStrategy gameState =
     | _ -> printfn "Please choose one of the available options, dummy."
            interactivePlayerStrategy gameState
 
+//this player always stands
+let inactivePlayerStrategy = 
+    ()
+
+//player always hits unless 21 or higher
+let greedyPlayerStrategy =
+    ()
+
+//player flips coin to decide hit.
+//head = hit, other = tails
+//Use System.Random from above: rand var
+let coinFlipPlayerStrategy =
+    ()
+
+//double down on two 5s, 11 total,
+//total of 10 (unless dealers first card is 10 or 11 -> hit in this case
+//total of 9 (unless dealers first card is a 2 7 or higher in which case hit
+//Split when 2 cards of same kind except on 20 (stand)
+//Otherwise if dealers first card is 2-6: stand if your total is 12 or greater. hit otherwise
+//dealer's first card is 7-k: hit if your total is <= 16 stand other
+//if dealer 1st card is Ace: hit if your total is 16 or less (if you have at least 1 Ace) otherwise hit if <= 11 otherwise stand
+//IMPORTANT: if hand satisfies 1 or more conditions above always perform 1st action written. i.e. double down > split
+let basicPlayerStrategy =
+    ()
     
 [<EntryPoint>]
 let main argv =
     // TODO: call manyGames to run 1000 games with a particular strategy.
+    //TESTING STUFF BELOW
     let test = {suit = Hearts; kind = 1}
     let test2 = {suit = Clubs; kind = 1}
     let test3 = {suit = Clubs; kind = 11}
-    test3 |> cardToString |> printf "%A"
+    //test3 |> cardToString |> printf "%A"
+    //[test; test2; test3] |> handToString |> printf "%A"
     //[test; test2; test3] |> handTotal |> printf "%A"
+
+    //ACTUAL RUN STUFF BELOW
+
     0 // return an integer exit code
 
 

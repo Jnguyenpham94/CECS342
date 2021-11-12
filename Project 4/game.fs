@@ -122,9 +122,7 @@ let handTotal hand =
     // modify the next line to count the number of aces in the hand.
     // Hint: List.filter and List.length. 
     //filter list by 11 "ace" value then count number of values of filtered list
-    let numAces = hand |> List.filter(fun a -> match cardValue a with
-                                                |11 -> true
-                                                |_ -> false)|>List.length
+    let numAces = hand |> List.filter(fun a -> a.kind = 1)|>List.length
 
     // Adjust the sum if it exceeds 21 and there are aces.
     if sum <= 21 then
@@ -182,6 +180,12 @@ let newGame (deck : Card list) =
      player = {activeHands = [{cards = playerCards; doubled = false}]; finishedHands = []}
      dealer = dealerCards}
 
+let finishedActive gameState =
+    let playerState = gameState.player
+    let active = playerState.activeHands.Head
+    let newActive = playerState.activeHands.Tail
+    let newfinHand = active :: playerState.finishedHands
+    {gameState with player = {playerState with activeHands = newActive; finishedHands = newfinHand}}
 
 // Given a current game state and an indication of which player is "hitting", deal one
 // card from the deck and add it to the given person's hand. Return the new game state.
@@ -201,9 +205,10 @@ let hit handOwner gameState =
         // Then update the player's active hands so that the new first hand is head of the list; and the
         //     other (unchanged) active hands follow it.
         // Then construct the new game state with the updated deck and updated player.
-        let newPlayerHand = gameState.player
+        let newPlayerHand = topCard :: gameState.player
+        let finPlayerHand = newPlayerHand :: 
         // TODO: this is just so the code compiles; fix it.
-        {gameState with deck = newDeck; player = newPlayerHand}
+        {gameState with deck = newDeck; dealer = newPlayerHand}
 
 
 // Take the dealer's turn by repeatedly taking a single action, hit or stay, until 
@@ -239,7 +244,7 @@ let rec playerTurn (playerStrategy : GameState->PlayerAction) (gameState : GameS
     // TODO: code this method using dealerTurn as a guide. Follow the same standard
     // of printing output. This function must return the new game state after the player's
     // turn has finished, like dealerTurn.
-
+    
     // Unlike the dealer, the player gets to make choices about whether they will hit or stay.
     // The "elif score < 17" code from dealerTurn is inappropriate; in its place, we will
     // allow a "strategy" to decide whether to hit. A "strategy" is a function that accepts
@@ -344,8 +349,12 @@ let rec interactivePlayerStrategy gameState =
            interactivePlayerStrategy gameState
 
 //this player always stands
-let inactivePlayerStrategy = 
+let inactivePlayerStrategy gameState= 
+    let playerHand = gameState.player.activeHands.Head
+    let legalActions = legalPlayerActions playerHand.cards
     ()
+
+
 
 //player always hits unless 21 or higher
 let greedyPlayerStrategy =
@@ -354,8 +363,11 @@ let greedyPlayerStrategy =
 //player flips coin to decide hit.
 //head = hit, other = tails
 //Use System.Random from above: rand var
-let coinFlipPlayerStrategy =
-    ()
+let coinFlipPlayerStrategy gameState =
+    if rand.Next(2) = 1 then //heads
+        hit Player gameState
+    else//tails
+        hit Player gameState
 
 //double down on two 5s, 11 total,
 //total of 10 (unless dealers first card is 10 or 11 -> hit in this case
@@ -378,9 +390,11 @@ let main argv =
     //test3 |> cardToString |> printf "%A"
     //[test; test2; test3] |> handToString |> printf "%A"
     //[test; test2; test3] |> handTotal |> printf "%A"
-
+    let deck = [{ suit = Hearts ; kind = 5}; { suit = Clubs ; kind = 13};{ suit = Spades ; kind = 5}; { suit = Clubs ; kind = 13};{ suit = Clubs ; kind = 1}]
+    //deck |> newGame |> oneGame basicPlayerStrategy |> printfn "%A"
+    
     //ACTUAL RUN STUFF BELOW
-
+    //makeDeck |> shuffleDeck |> newGame |> manyGames 1000 inactivePlayerStrategy |> printfn "%A"
     0 // return an integer exit code
 
 

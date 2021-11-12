@@ -255,6 +255,8 @@ let rec playerTurn (playerStrategy : GameState->PlayerAction) (gameState : GameS
     // playerTurn must call that function (the parameter playerStrategy) to decide whether
     // to hit or stay.
     let playerState = gameState.player
+    let playerHand = playerState.activeHands.Head.cards
+    let score = handTotal playerHand
 
     if playerState.activeHands.IsEmpty then
         // A player with no active hands cannot take an action.
@@ -264,7 +266,8 @@ let rec playerTurn (playerStrategy : GameState->PlayerAction) (gameState : GameS
         // TODO: print the player's first active hand. Call the strategy to get a PlayerAction.
         // Create a new game state based on that action. Recurse if the player can take another action 
         // after their chosen one, or return the game state if they cannot.
-        
+        printfn "Player's hand: %s; %d points" (handToString playerHand) score
+
         // Remove this when you're ready; it's just so the code compiles.
         gameState
                         
@@ -353,11 +356,7 @@ let rec interactivePlayerStrategy gameState =
 
 //this player always stands
 let inactivePlayerStrategy gameState= 
-    let playerHand = gameState.player.activeHands.Head
-    let legalActions = legalPlayerActions playerHand.cards
-    ()
-
-
+    gameState
 
 //player always hits unless 21 or higher
 let greedyPlayerStrategy =
@@ -382,7 +381,11 @@ let coinFlipPlayerStrategy gameState =
 //IMPORTANT: if hand satisfies 1 or more conditions above always perform 1st action written. i.e. double down > split
 let basicPlayerStrategy =
     ()
-    
+ 
+//checks who won dealer v player
+let winLose dealer player =
+    ()
+
 [<EntryPoint>]
 let main argv =
     // TODO: call manyGames to run 1000 games with a particular strategy.

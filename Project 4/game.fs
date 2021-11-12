@@ -180,6 +180,7 @@ let newGame (deck : Card list) =
      player = {activeHands = [{cards = playerCards; doubled = false}]; finishedHands = []}
      dealer = dealerCards}
 
+//helper func that moves activehands to finishedhands
 let finishedActive gameState =
     let playerState = gameState.player
     let active = playerState.activeHands.Head
@@ -205,10 +206,12 @@ let hit handOwner gameState =
         // Then update the player's active hands so that the new first hand is head of the list; and the
         //     other (unchanged) active hands follow it.
         // Then construct the new game state with the updated deck and updated player.
-        let newPlayerHand = topCard :: gameState.player
-        let finPlayerHand = newPlayerHand :: 
+        let playerState = gameState.player
+        let active = playerState.activeHands.Head
+        let newPlayerHand = topCard :: active.cards
+        let newGState = finishedActive gameState
         // TODO: this is just so the code compiles; fix it.
-        {gameState with deck = newDeck; dealer = newPlayerHand}
+        {newGState with deck = newDeck; dealer = newPlayerHand}
 
 
 // Take the dealer's turn by repeatedly taking a single action, hit or stay, until 

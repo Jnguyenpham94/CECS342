@@ -201,7 +201,7 @@ let hit handOwner gameState =
         {gameState with deck = newDeck;
                         dealer = newDealerHand}
     else
-        // TODO: updating the player is trickier. We are always working with the player's first
+        // updating the player is trickier. We are always working with the player's first
         // active hand. Create a new first hand by adding the top card to that hand's card list.
         // Then update the player's active hands so that the new first hand is head of the list; and the
         //     other (unchanged) active hands follow it.
@@ -210,8 +210,8 @@ let hit handOwner gameState =
         let active = playerState.activeHands.Head
         let newPlayerHand = topCard :: active.cards
         let newGState = finishedActive gameState
-        // TODO: this is just so the code compiles; fix it.
-        {newGState with deck = newDeck; dealer = newPlayerHand}
+        // this is just so the code compiles; fix it.
+        {gameState with deck = newDeck; player = newGState.player}
 
 
 // Take the dealer's turn by repeatedly taking a single action, hit or stay, until 

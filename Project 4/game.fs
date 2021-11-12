@@ -359,8 +359,12 @@ let inactivePlayerStrategy gameState=
     gameState
 
 //player always hits unless 21 or higher
-let greedyPlayerStrategy =
-    ()
+let greedyPlayerStrategy gameState=
+    let total = gameState.player.activeHands.Head.cards |> handTotal
+    if total < 21 then
+        hit Player gameState
+    else
+        gameState
 
 //player flips coin to decide hit.
 //head = hit, other = tails
@@ -368,8 +372,8 @@ let greedyPlayerStrategy =
 let coinFlipPlayerStrategy gameState =
     if rand.Next(2) = 1 then //heads
         hit Player gameState
-    else//tails
-        hit Player gameState
+    else//tails stand
+        gameState
 
 //double down on two 5s, 11 total,
 //total of 10 (unless dealers first card is 10 or 11 -> hit in this case
@@ -384,7 +388,12 @@ let basicPlayerStrategy =
  
 //checks who won dealer v player
 let winLose dealer player =
-    ()
+    if dealer = player then
+        Draw
+    elif dealer < Player then
+        Win
+    else
+        Lose
 
 [<EntryPoint>]
 let main argv =

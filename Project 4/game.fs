@@ -391,34 +391,57 @@ let basicLogic playerHand dealerHand gameState : PlayerAction =
     let numFive = playerHand |> List.filter(fun a -> a.kind = 5)|>List.length
     let playerTotal = handTotal playerHand
     let dealerTotal = handTotal dealerHand
-    let sameSplit = 2
+    let dealerFirst = dealerHand.Head
+    let dealerSecond = dealerHand.Tail
+    let numAces = playerHand |> List.filter(fun a -> a.kind = 1)|>List.length
     //DoubleDown
     if numFive = 2 then
         DoubleDown
-    else 
-        match playerTotal with
-            | 11 -> DoubleDown
-            | 10 -> if cardValue dealerHand.Head = 10 || cardValue dealerHand.Head = 11 then
-                        Hit
-                    else
-                        DoubleDown
-            | 9  -> if cardValue dealerHand.Head = 2 || cardValue dealerHand.Head >= 7 then
-                        Hit
-                    else
-                        DoubleDown
-    if playerHand.Head.kind then
-        Split
-    elif playerTotal = 20
-        Stand
+    elif playerTotal = 11 then DoubleDown
+    elif playerTotal = 10 then
+        if cardValue dealerFirst = 10 || cardValue dealerFirst = 11 then
+            Hit
+        else
+            DoubleDown
+    elif playerTotal = 9 then
+        if cardValue dealerFirst = 2 || cardValue dealerFirst >= 7 then
+            Hit
+        else
+            DoubleDown
+    //Split
+    elif cardValue playerHand.Head = cardValue playerHand.Tail.Head then
+        if playerTotal = 20 then
+            Stand
+        else
+            Split
+    //dealer logic
+    else
+        if dealerFirst.kind >= 2 && dealerFirst.kind <= 6 then
+            if playerTotal >= 12 then
+                Stand
+            else
+                Hit
+        elif dealerFirst.kind >= 7 then
+            if playerTotal <= 16 then
+                Hit
+            else
+                Stand
+        elif dealerFirst.kind = 1 then
+            if playerTotal <= 16 && numAces >= 1 then
+                Hit
+            elif playerTotal <= 11 then
+                Hit
+            else
+                Stand
+        else
+            Hit
+            
 
-
+//takes GameState and returns Hit, DoubleDown, Stand or Split
 let basicPlayerStrategy gameState : PlayerAction =
     let playerHand = gameState.player.activeHands.Head.cards
     let dealerHand = gameState.dealer
-    let legalActions = legalPlayerActions playerHand
-    let action = match legalActions.IsEmpty with
-                    | false -> basicLogic playerHand dealerHand gameState
-                    | true -> Stand 
+    let action = basicLogic playerHand dealerHand gameState
     action
         
  

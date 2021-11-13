@@ -267,7 +267,11 @@ let rec playerTurn (playerStrategy : GameState->PlayerAction) (gameState : GameS
         // Create a new game state based on that action. Recurse if the player can take another action 
         // after their chosen one, or return the game state if they cannot.
         printfn "Player's hand: %s; %d points" (handToString playerHand) score
-
+        gameState |> match playerStrategy with
+        | DoubleDown -> 
+        | Stand -> gameState
+        | Hit -> hit Player
+        | Split -> playerHand.Head
         // Remove this when you're ready; it's just so the code compiles.
         gameState
                         
@@ -355,25 +359,25 @@ let rec interactivePlayerStrategy gameState =
            interactivePlayerStrategy gameState
 
 //this player always stands
-let inactivePlayerStrategy gameState= 
-    gameState
+let inactivePlayerStrategy gameState : PlayerAction = 
+    Stand
 
 //player always hits unless 21 or higher
-let greedyPlayerStrategy gameState=
+let greedyPlayerStrategy gameState : PlayerAction=
     let total = gameState.player.activeHands.Head.cards |> handTotal
     if total < 21 then
-        hit Player gameState
+        Hit
     else
-        gameState
+        Stand //return state aka stand/do nothing
 
 //player flips coin to decide hit.
 //head = hit, other = tails
 //Use System.Random from above: rand var
-let coinFlipPlayerStrategy gameState =
+let coinFlipPlayerStrategy gameState : PlayerAction=
     if rand.Next(2) = 1 then //heads
-        hit Player gameState
+        Hit
     else//tails stand
-        gameState
+        Stand
 
 //double down on two 5s, 11 total,
 //total of 10 (unless dealers first card is 10 or 11 -> hit in this case
@@ -383,14 +387,48 @@ let coinFlipPlayerStrategy gameState =
 //dealer's first card is 7-k: hit if your total is <= 16 stand other
 //if dealer 1st card is Ace: hit if your total is 16 or less (if you have at least 1 Ace) otherwise hit if <= 11 otherwise stand
 //IMPORTANT: if hand satisfies 1 or more conditions above always perform 1st action written. i.e. double down > split
-let basicPlayerStrategy =
-    ()
+let basicLogic playerHand dealerHand gameState : PlayerAction =
+    let numFive = playerHand |> List.filter(fun a -> a.kind = 5)|>List.length
+    let playerTotal = handTotal playerHand
+    let dealerTotal = handTotal dealerHand
+    let sameSplit = 2
+    //DoubleDown
+    if numFive = 2 then
+        DoubleDown
+    else 
+        match playerTotal with
+            | 11 -> DoubleDown
+            | 10 -> if cardValue dealerHand.Head = 10 || cardValue dealerHand.Head = 11 then
+                        Hit
+                    else
+                        DoubleDown
+            | 9  -> if cardValue dealerHand.Head = 2 || cardValue dealerHand.Head >= 7 then
+                        Hit
+                    else
+                        DoubleDown
+    if playerHand.Head.kind then
+        Split
+    elif playerTotal = 20
+        Stand
+
+
+let basicPlayerStrategy gameState : PlayerAction =
+    let playerHand = gameState.player.activeHands.Head.cards
+    let dealerHand = gameState.dealer
+    let legalActions = legalPlayerActions playerHand
+    let action = match legalActions.IsEmpty with
+                    | false -> basicLogic playerHand dealerHand gameState
+                    | true -> Stand 
+    action
+        
  
 //checks who won dealer v player
 let winLose dealer player =
-    if dealer = player then
+    let dealerTotal = handTotal dealer
+    let playerTotal = handTotal player
+    if dealerTotal = playerTotal then
         Draw
-    elif dealer < Player then
+    elif dealerTotal < playerTotal then
         Win
     else
         Lose
@@ -398,6 +436,7 @@ let winLose dealer player =
 [<EntryPoint>]
 let main argv =
     // TODO: call manyGames to run 1000 games with a particular strategy.
+    
     //TESTING STUFF BELOW
     let test = {suit = Hearts; kind = 1}
     let test2 = {suit = Clubs; kind = 1}

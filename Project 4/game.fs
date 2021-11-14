@@ -88,7 +88,7 @@ let cardToString card =
 
 // Returns a string describing the cards in a hand.    
 let handToString hand =
-    // TODO: replace the following line with statement(s) to build a string describing the given hand.
+    // replace the following line with statement(s) to build a string describing the given hand.
     // The string consists of the results of cardToString when called on each Card in the hand (a Card list),
     // separated by commas. You need to build this string yourself; the built-in "toString" methods for lists
     // insert semicolons and square brackets that I do not want.
@@ -209,7 +209,7 @@ let hit handOwner gameState =
         let playerState = gameState.player
         let active = playerState.activeHands.Head
         let newPlayerHand = topCard :: active.cards
-        let newGState = finishedActive gameState
+        let newGState = finishedActive gameState //need to change to active point to head
         // this is just so the code compiles; fix it.
         {gameState with deck = newDeck; player = newGState.player}
 
@@ -240,7 +240,16 @@ let rec dealerTurn gameState =
         // The dealer does not get to take another action.
         printfn "Dealer must stay"
         gameState
-        
+
+//splits hand to 2 active hands; adds a card to each then returns to playerTurn        
+let splitter gameState : GameState=
+    let handOne = [gameState.player.activeHands.Head.cards.Head]
+    let handtwo = []
+    let oneHand = {cards = []; doubled = false}
+    let newDeck = List.tail gameState.deck
+    let secondHand = 0
+    let newDeck = List.tail gameState.deck
+    gameState
 
 // Take the player's turn by repeatedly taking a single action until they bust or stay.
 let rec playerTurn (playerStrategy : GameState->PlayerAction) (gameState : GameState) =
@@ -267,40 +276,62 @@ let rec playerTurn (playerStrategy : GameState->PlayerAction) (gameState : GameS
         // Create a new game state based on that action. Recurse if the player can take another action 
         // after their chosen one, or return the game state if they cannot.
         printfn "Player's hand: %s; %d points" (handToString playerHand) score
-        gameState |> match playerStrategy with
-        | DoubleDown -> 
-        | Stand -> gameState
-        | Hit -> hit Player
-        | Split -> playerHand.Head
-        // Remove this when you're ready; it's just so the code compiles.
-        gameState
+        let action = match playerStrategy gameState with
+                        | Stand     -> finishedActive gameState |> playerTurn playerStrategy
+                        | DoubleDown-> hit Player gameState |> playerTurn playerStrategy
+                        | Hit       -> hit Player gameState |> playerTurn playerStrategy
+                        | Split     -> playerTurn playerStrategy gameState
                         
-
+        // Remove this when you're ready; it's just so the code compiles.
+        action
+                        
+//checks who won dealer v player
+let winLose dealer player =
+    let dealerTotal = handTotal dealer
+    let playerTotal = handTotal player
+    let outcome = match dealerTotal with
+                    | 21 -> match playerTotal with
+                            | 
+    if dealerTotal = 21 && playerTotal <> 21 then
+        Lose
+    else
+        Draw
+    if dealerTotal = playerTotal then
+        Draw
+    elif dealerTotal < playerTotal then
+        Win
+    else
+        Lose
 
 // Plays one game with the given player strategy. Returns a GameLog recording the winner of the game.
 let oneGame playerStrategy gameState =
     // TODO: print the first card in the dealer's hand to the screen, because the Player can see
     // one card from the dealer's hand in order to make their decisions.
-    printfn "Dealer is showing: %A" 0 // fix this line
+    gameState.dealer |> handToString |> printfn "Dealer is showing: %A"// fix this line
 
     printfn "Player's turn"
     // TODO: play the game! First the player gets their turn. The dealer then takes their turn,
     // using the state of the game after the player's turn finished.
-
+    let state = playerTurn playerStrategy gameState
     printfn "\nDealer's turn"
-    
+    let dstate = dealerTurn state
     // TODO: determine the winner(s)! For each of the player's hands, determine if that hand is a 
     // win, loss, or draw. Accumulate (!!) the sum total of wins, losses, and draws, accounting for doubled-down
     // hands, which gets 2 wins, 2 losses, or 1 draw
-    
+    let outcome = winLose dstate.dealer dstate.player.activeHands.Head.cards
     // The player wins a hand if they did not bust (score <= 21) AND EITHER:
     // - the dealer busts; or
     // - player's score > dealer's score
     // If neither side busts and they have the same score, the result is a draw.
-
+    match outcome with
+    | Lose -> {playerWins = 0; dealerWins = 1; draws = 0}
+    | Draw -> {playerWins = 0; dealerWins = 0; draws = 1}
+    | Win -> if dstate.player.activeHands.Head.doubled = true then
+                {playerWins = 2; dealerWins = 0; draws = 0}
+             else
+                {playerWins = 1; dealerWins = 0; draws = 0}
     // TODO: this is a "blank" GameLog. Return something more appropriate for each of the outcomes
     // described above.
-    {playerWins = 0; dealerWins = 0; draws = 0}
 
 
 // Plays n games using the given playerStrategy, and returns the combined game log.
@@ -444,17 +475,6 @@ let basicPlayerStrategy gameState : PlayerAction =
     let action = basicLogic playerHand dealerHand gameState
     action
         
- 
-//checks who won dealer v player
-let winLose dealer player =
-    let dealerTotal = handTotal dealer
-    let playerTotal = handTotal player
-    if dealerTotal = playerTotal then
-        Draw
-    elif dealerTotal < playerTotal then
-        Win
-    else
-        Lose
 
 [<EntryPoint>]
 let main argv =
@@ -468,7 +488,7 @@ let main argv =
     //[test; test2; test3] |> handToString |> printf "%A"
     //[test; test2; test3] |> handTotal |> printf "%A"
     let deck = [{ suit = Hearts ; kind = 5}; { suit = Clubs ; kind = 13};{ suit = Spades ; kind = 5}; { suit = Clubs ; kind = 13};{ suit = Clubs ; kind = 1}]
-    //deck |> newGame |> oneGame basicPlayerStrategy |> printfn "%A"
+    deck |> newGame |> oneGame basicPlayerStrategy |> printfn "%A"
     
     //ACTUAL RUN STUFF BELOW
     //makeDeck |> shuffleDeck |> newGame |> manyGames 1000 inactivePlayerStrategy |> printfn "%A"

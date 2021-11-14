@@ -289,19 +289,20 @@ let rec playerTurn (playerStrategy : GameState->PlayerAction) (gameState : GameS
 let winLose dealer player =
     let dealerTotal = handTotal dealer
     let playerTotal = handTotal player
-    let outcome = match dealerTotal with
-                    | 21 -> match playerTotal with
-                            | 
-    if dealerTotal = 21 && playerTotal <> 21 then
-        Lose
-    else
-        Draw
-    if dealerTotal = playerTotal then
-        Draw
-    elif dealerTotal < playerTotal then
-        Win
-    else
-        Lose
+    match dealerTotal with
+    | 21 -> match playerTotal with
+            | 21 -> Draw
+            | _  -> Lose
+    | _ -> if dealerTotal = playerTotal then
+                Draw
+           elif dealerTotal < playerTotal then
+                Win
+           elif dealerTotal > 21 && playerTotal <= 21 then
+                Win
+           elif playerTotal > 21 && dealerTotal <= 21 then
+                Lose
+           else
+                Lose
 
 // Plays one game with the given player strategy. Returns a GameLog recording the winner of the game.
 let oneGame playerStrategy gameState =

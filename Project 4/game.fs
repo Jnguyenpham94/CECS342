@@ -347,11 +347,12 @@ let manyGames n playerStrategy =
     // If you're slick, you won't do any recursion yourself. Instead read about List.init, 
     // and then consider List.reduce.
 
-    let endResult = List.init n (fun a -> oneGame playerStrategy) //need to figure out way to add GameLogs
-                        |> List.reduce (fun a b -> match a with
-                                                    | -> )
+    //let endResult = List.init n (fun a -> oneGame playerStrategy) //need to figure out way to add GameLogs
+    //                    |> List.reduce (fun a b -> match a with
+    //                                              | _ -> {playerWins = 0; dealerWins = 0; draws = 0})
     // TODO: this is a "blank" GameLog. Return something more appropriate.
-    endResult
+    //endResult
+    {playerWins = 0; dealerWins = 0; draws = 0}
             
 
         

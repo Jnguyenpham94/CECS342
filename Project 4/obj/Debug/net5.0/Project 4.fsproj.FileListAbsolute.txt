@@ -26,5 +26,4 @@ C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.Ass
 C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.dll
 C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.pdb
 C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.genruntimeconfig.cache
-C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.fsproj.AssemblyReference.cache
 C:\Users\nguye\Documents\GitHub\CECS342\Project 4\obj\Debug\net5.0\Project 4.fsproj.CopyComplete

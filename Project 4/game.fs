@@ -210,7 +210,6 @@ let hit handOwner gameState =
         let activeHand = playerState.activeHands.Head
         let newPlayerHand = topCard :: activeHand.cards
         {gameState with deck = newDeck; player = {playerState with activeHands = [{cards = newPlayerHand; doubled = false}]}}
-        
 
 
 // Take the dealer's turn by repeatedly taking a single action, hit or stay, until 
@@ -250,6 +249,13 @@ let splitter gameState : GameState=
     let newDeck = List.tail gameState.deck
     gameState
 
+//takes current gameState from DoubledDown action and changes doubled to true
+let doubled gameState : GameState =
+    if gameState.player.finishedHands.IsEmpty then
+        gameState
+    else
+        {gameState with player = {gameState.player with finishedHands = [{cards = gameState.player.finishedHands.Head.cards; doubled = true}]}}
+
 // Take the player's turn by repeatedly taking a single action until they bust or stay.
 let rec playerTurn (playerStrategy : GameState->PlayerAction) (gameState : GameState) =
     // TODO: code this method using dealerTurn as a guide. Follow the same standard
@@ -269,17 +275,17 @@ let rec playerTurn (playerStrategy : GameState->PlayerAction) (gameState : GameS
         gameState
     else
         // The next line is just so the code compiles. Remove it when you code the function.
-        // TODO: print the player's first active hand. Call the strategy to get a PlayerAction.
+        // print the player's first active hand. Call the strategy to get a PlayerAction.
         // Create a new game state based on that action. Recurse if the player can take another action 
         // after their chosen one, or return the game state if they cannot.
         let playerHand = playerState.activeHands.Head.cards
         let score = handTotal playerHand
         printfn "Player's hand: %s; %d points" (handToString playerHand) score
         let action = match playerStrategy gameState with
-                        | Stand     -> finishedActive gameState |> playerTurn playerStrategy
-                        | DoubleDown-> hit Player gameState |> playerTurn playerStrategy
+                        | Stand     -> finishedActive gameState
+                        | DoubleDown-> hit Player gameState |> finishedActive |> doubled |> playerTurn playerStrategy 
                         | Hit       -> hit Player gameState |> playerTurn playerStrategy
-                        | Split     -> playerTurn playerStrategy gameState
+                        | Split     -> playerTurn playerStrategy gameState //TODO: needs work
         action
                         
 //checks who won dealer v player
@@ -322,13 +328,16 @@ let oneGame playerStrategy gameState =
     // - player's score > dealer's score
     // If neither side busts and they have the same score, the result is a draw.
     match outcome with
-    | Lose -> {playerWins = 0; dealerWins = 1; draws = 0}
+    | Lose -> if dstate.player.finishedHands.Head.doubled = true then
+                {playerWins = 0; dealerWins = 2; draws = 0}
+              else
+                {playerWins = 0; dealerWins = 1; draws = 0}
     | Draw -> {playerWins = 0; dealerWins = 0; draws = 1}
     | Win -> if dstate.player.finishedHands.Head.doubled = true then
                 {playerWins = 2; dealerWins = 0; draws = 0}
              else
                 {playerWins = 1; dealerWins = 0; draws = 0}
-    // TODO: this is a "blank" GameLog. Return something more appropriate for each of the outcomes
+    // this is a "blank" GameLog. Return something more appropriate for each of the outcomes
     // described above.
 
 

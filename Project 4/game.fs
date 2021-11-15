@@ -298,12 +298,12 @@ let winLose dealer player =
             | _  -> Lose
     | _ -> if dealerTotal = playerTotal then
                 Draw
+           elif dealerTotal > 21 && playerTotal <= 21 then //dealer bust
+                Win
+           elif playerTotal > 21 && dealerTotal <= 21 then //player bust
+                Lose
            elif dealerTotal < playerTotal then
                 Win
-           elif dealerTotal > 21 && playerTotal <= 21 then
-                Win
-           elif playerTotal > 21 && dealerTotal <= 21 then
-                Lose
            else
                 Lose
 
@@ -332,10 +332,10 @@ let oneGame playerStrategy gameState =
                 {playerWins = 0; dealerWins = 2; draws = 0}
               else
                 {playerWins = 0; dealerWins = 1; draws = 0}
-    | Draw -> {playerWins = 0; dealerWins = 0; draws = 1}
-    | Win -> if dstate.player.finishedHands.Head.doubled = true then
+    | Draw ->   {playerWins = 0; dealerWins = 0; draws = 1}
+    | Win  -> if dstate.player.finishedHands.Head.doubled = true then
                 {playerWins = 2; dealerWins = 0; draws = 0}
-             else
+              else
                 {playerWins = 1; dealerWins = 0; draws = 0}
     // this is a "blank" GameLog. Return something more appropriate for each of the outcomes
     // described above.
@@ -346,10 +346,12 @@ let manyGames n playerStrategy =
     // TODO: run oneGame with the playerStrategy n times, and accumulate the result. 
     // If you're slick, you won't do any recursion yourself. Instead read about List.init, 
     // and then consider List.reduce.
-    let rec manyGamesTo n playerStrategy log =
-        {playerWins = 0; dealerWins = 0; draws = 0}
+
+    let endResult = List.init n (fun a -> oneGame playerStrategy) //need to figure out way to add GameLogs
+                        |> List.reduce (fun a b -> match a with
+                                                    | -> )
     // TODO: this is a "blank" GameLog. Return something more appropriate.
-    manyGamesTo n playerStrategy {playerWins = 0; dealerWins = 0; draws = 0}
+    endResult
             
 
         

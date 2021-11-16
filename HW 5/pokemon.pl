@@ -4,9 +4,14 @@ number(pikachu, 25).
 evolves(pikachu, raichu).
 evolves(charmander, charmeleon).
 evolves(charmeleon, charizard).
+evolves(charmander, charmeleon, level(16)).
+evolves(charmeleon, charizard, level(36)).
 evolves(eevee, jolteon).
 evolves(eevee, flareon).
 evolves(eevee, vaporeon).
+evolves(eevee, jolteon, item(thunderstone)).
+evolves(eevee, flareon, item(firestone)).
+evolves(eevee, vaporeon, item(waterstone)).
 
 % Slightly more complex facts.
 
@@ -27,6 +32,10 @@ canUseItem(Pokemon, tm(X)) :- learns(Pokemon, _, tm(X)). % _ is "don't care", ye
 descendent(X, Y) :- evolves(Y, X).
 descendent(X, Y) :- evolves(Y, Z), descendent(X, Z). % This one is recursive!!
 
+damageMultiplier(MoveType, TargetType, 2.0) :- effective(MoveType, TargetType). % a move does 2x damage against a target if it is effective against that target.
+damageMultiplier(MoveType, TargetType, 1.0) :- effective(MoveType, TargetType). % a move does 2x damage against a target if it is effective against that target.
+damageMultiplier(MoveType, TargetType, 0.5) :- effective(MoveType, TargetType). % a move does 2x damage against a target if it is effective against that target.
+damageMultiplier(MoveType, TargetType, 0) :- effective(MoveType, TargetType). % a move does 2x damage against a target if it is effective against that target.
 
 effective(bug, dark).
 effective(bug, grass).

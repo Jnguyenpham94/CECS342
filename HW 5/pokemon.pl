@@ -20,7 +20,6 @@ move(thunderpunch, electric, physical, 75).
 learns(pikachu, thunderbolt, level(36)). % Pikachu learns Thunderbolt at level 36.
 learns(pikachu, thunderpunch, tm(5)).
 
-
 % Simple rules.
 
 sibling(X, Y) :- evolves(Parent, X), evolves(Parent, Y), X \= Y. % the comma means "and". "\=" means "does not unify".
@@ -33,9 +32,11 @@ descendent(X, Y) :- evolves(Y, X).
 descendent(X, Y) :- evolves(Y, Z), descendent(X, Z). % This one is recursive!!
 
 damageMultiplier(MoveType, TargetType, 2.0) :- effective(MoveType, TargetType). % a move does 2x damage against a target if it is effective against that target.
-damageMultiplier(MoveType, TargetType, 1.0) :- effective(MoveType, TargetType). % a move does 2x damage against a target if it is effective against that target.
-damageMultiplier(MoveType, TargetType, 0.5) :- effective(MoveType, TargetType). % a move does 2x damage against a target if it is effective against that target.
-damageMultiplier(MoveType, TargetType, 0) :- effective(MoveType, TargetType). % a move does 2x damage against a target if it is effective against that target.
+damageMultiplier(MoveType, TargetType, 1.0) :- effective(MoveType, TargetType). % a move does 1x damage against a target if it is normal against that target
+damageMultiplier(MoveType, TargetType, 0.5) :- effective(MoveType, TargetType). % a move does 0.5 damage against a target if it is not very effective against that target.
+damageMultiplier(MoveType, TargetType, 0) :- effective(MoveType, TargetType). % a move does 0x damage against a target if it is immune against that target.
+
+product(X, Y, Z) :- Z is X * Y.
 
 effective(bug, dark).
 effective(bug, grass).

@@ -4,11 +4,11 @@ number(pikachu, 25).
 evolves(pikachu, raichu).
 evolves(charmander, charmeleon).
 evolves(charmeleon, charizard).
-evolves(charmander, charmeleon, level(16)).
-evolves(charmeleon, charizard, level(36)).
 evolves(eevee, jolteon).
 evolves(eevee, flareon).
 evolves(eevee, vaporeon).
+evolves(charmander, charmeleon, level(16)).
+evolves(charmeleon, charizard, level(36)).
 evolves(eevee, jolteon, item(thunderstone)).
 evolves(eevee, flareon, item(firestone)).
 evolves(eevee, vaporeon, item(waterstone)).

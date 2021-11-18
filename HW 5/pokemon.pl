@@ -36,8 +36,14 @@ damageMultiplier(MoveType, TargetType, 1.0) :- effective(MoveType, TargetType). 
 damageMultiplier(MoveType, TargetType, 0.5) :- effective(MoveType, TargetType). % a move does 0.5 damage against a target if it is not very effective against that target.
 damageMultiplier(MoveType, TargetType, 0) :- effective(MoveType, TargetType). % a move does 0x damage against a target if it is immune against that target.
 
-product(X, Y, Z) :- Z is X * Y.
-attackEffectiveness().
+%attackEffectiveness(fire, [water, grass], X) gives X=...what?
+%attackEffectiveness(fire, [electric, normal], X) gives X=...?
+%attackEffectiveness(fire, [grass, ice, steel], X) gives X=...?
+%attackEffectiveness(M, [water, flying], 4.0) gives M=...?
+%attackEffectiveness(grass, [water, T], 1.0) gives T=...?
+
+product(X, Y, Equalsto) :- Equalsto is X * Y.
+attackEffectiveness(MoveType, [TargetType, _], X) :- maplist(damageMultiplier).
 
 effective(bug, dark).
 effective(bug, grass).

@@ -37,6 +37,7 @@ damageMultiplier(MoveType, TargetType, 0.5) :- effective(MoveType, TargetType). 
 damageMultiplier(MoveType, TargetType, 0) :- effective(MoveType, TargetType). % a move does 0x damage against a target if it is immune against that target.
 
 product(X, Y, Z) :- Z is X * Y.
+attackEffectiveness().
 
 effective(bug, dark).
 effective(bug, grass).

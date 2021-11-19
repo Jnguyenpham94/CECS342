@@ -155,7 +155,7 @@ ineffective(water, water).
 damageMultiplier(MoveType, TargetType, 2.0) :- effective(MoveType, TargetType). % a move does 2x damage against a target if it is effective against that target.
 damageMultiplier(MoveType, TargetType, 0.5) :- ineffective(MoveType, TargetType). % a move does 0.5 damage against a target if it is not very effective against that target.
 damageMultiplier(MoveType, TargetType, 0) :- immune(MoveType, TargetType). % a move does 0x damage against a target if it is immune against that target.
-damageMultiplier(MoveType, TargetType, 1.0). % a move does 1x damage against a target if it is normal against that target
+damageMultiplier(MoveType, TargetType, 1.0). % a move does 1x damage against a target if it is normal against that target; this case catches everything else after the above 3
 
 %attackEffectiveness(fire, [water, grass], X) gives X=...what? 1
 %attackEffectiveness(fire, [electric, normal], X) gives X=...? 1
@@ -165,4 +165,4 @@ damageMultiplier(MoveType, TargetType, 1.0). % a move does 1x damage against a t
 
 product(X, Y, Z) :- Z is X * Y.
 attackEffectiveness(MoveType, TargetType, Z) :- damageMultiplier(MoveType,TargetType,Z).
-attackEffectiveness(MoveType, TargetType, Z) :- foldl(product, maplist(damageMultiplier(MoveType),TargetType), 1, Z).
+attackEffectiveness(MoveType, TargetType, Z) :- foldl(product, maplist(damageMultiplier(MoveType),TargetType), 1.0, Z).

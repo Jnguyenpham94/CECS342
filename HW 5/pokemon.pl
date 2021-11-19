@@ -157,9 +157,9 @@ damageMultiplier(MoveType, TargetType, 0.5) :- ineffective(MoveType, TargetType)
 damageMultiplier(MoveType, TargetType, 0) :- immune(MoveType, TargetType). % a move does 0x damage against a target if it is immune against that target.
 damageMultiplier(MoveType, TargetType, 1.0). % a move does 1x damage against a target if it is normal against that target; this case catches everything else after the above 3
 
-%attackEffectiveness(fire, [water, grass], X) gives X=...what? 1
-%attackEffectiveness(fire, [electric, normal], X) gives X=...? 1
-%attackEffectiveness(fire, [grass, ice, steel], X) gives X=...?  8
+%attackEffectiveness(fire, [water, grass], X) gives X=...what? 1.0
+%attackEffectiveness(fire, [electric, normal], X) gives X=...? 1.0
+%attackEffectiveness(fire, [grass, ice, steel], X) gives X=...?  8.0
 %attackEffectiveness(M, [water, flying], 4.0) gives M=...? electric
 %attackEffectiveness(grass, [water, T], 1.0) gives T=...? fire, grass, poison...
 

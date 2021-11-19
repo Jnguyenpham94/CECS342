@@ -31,20 +31,6 @@ canUseItem(Pokemon, tm(X)) :- learns(Pokemon, _, tm(X)). % _ is "don't care", ye
 descendent(X, Y) :- evolves(Y, X).
 descendent(X, Y) :- evolves(Y, Z), descendent(X, Z). % This one is recursive!!
 
-damageMultiplier(MoveType, TargetType, 2.0) :- effective(MoveType, TargetType). % a move does 2x damage against a target if it is effective against that target.
-damageMultiplier(MoveType, TargetType, 1.0) :- effective(MoveType, TargetType). % a move does 1x damage against a target if it is normal against that target
-damageMultiplier(MoveType, TargetType, 0.5) :- effective(MoveType, TargetType). % a move does 0.5 damage against a target if it is not very effective against that target.
-damageMultiplier(MoveType, TargetType, 0) :- effective(MoveType, TargetType). % a move does 0x damage against a target if it is immune against that target.
-
-%attackEffectiveness(fire, [water, grass], X) gives X=...what?
-%attackEffectiveness(fire, [electric, normal], X) gives X=...?
-%attackEffectiveness(fire, [grass, ice, steel], X) gives X=...?
-%attackEffectiveness(M, [water, flying], 4.0) gives M=...?
-%attackEffectiveness(grass, [water, T], 1.0) gives T=...?
-
-product(X, Y, Equalsto) :- Equalsto is X * Y.
-attackEffectiveness(MoveType, [TargetType, _], X) :- maplist(damageMultiplier).
-
 effective(bug, dark).
 effective(bug, grass).
 effective(bug, psychic).
@@ -165,3 +151,18 @@ ineffective(steel, water).
 ineffective(water, dragon).
 ineffective(water, grass).
 ineffective(water, water).
+
+damageMultiplier(MoveType, TargetType, 2.0) :- effective(MoveType, TargetType). % a move does 2x damage against a target if it is effective against that target.
+damageMultiplier(MoveType, TargetType, 0.5) :- ineffective(MoveType, TargetType). % a move does 0.5 damage against a target if it is not very effective against that target.
+damageMultiplier(MoveType, TargetType, 0) :- immune(MoveType, TargetType). % a move does 0x damage against a target if it is immune against that target.
+damageMultiplier(MoveType, TargetType, 1.0). % a move does 1x damage against a target if it is normal against that target
+
+%attackEffectiveness(fire, [water, grass], X) gives X=...what? 1
+%attackEffectiveness(fire, [electric, normal], X) gives X=...? 1
+%attackEffectiveness(fire, [grass, ice, steel], X) gives X=...?  8
+%attackEffectiveness(M, [water, flying], 4.0) gives M=...? electric
+%attackEffectiveness(grass, [water, T], 1.0) gives T=...? fire, grass, poison...
+
+product(X, Y, Z) :- Z is X * Y.
+attackEffectiveness(MoveType, TargetType, Z) :- damageMultiplier(MoveType,TargetType,Z).
+attackEffectiveness(MoveType, TargetType, Z) :- foldl(product, maplist(damageMultiplier(MoveType),TargetType), 1, Z).

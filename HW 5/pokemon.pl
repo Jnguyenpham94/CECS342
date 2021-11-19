@@ -165,4 +165,7 @@ damageMultiplier(MoveType, TargetType, 1.0). % a move does 1x damage against a t
 
 product(X, Y, Z) :- Z is X * Y.
 attackEffectiveness(MoveType, TargetType, Z) :- damageMultiplier(MoveType,TargetType,Z).
-attackEffectiveness(MoveType, TargetType, Z) :- foldl(product, maplist(damageMultiplier(MoveType), TargetType, Z), 1.0, Z).
+%attackEffectiveness(MoveType, TargetType, Z) :- foldl(product, maplist(damageMultiplier(MoveType), TargetType, Z), 1.0, Z).
+attackEffectiveness(MoveType, TargetType, Z) :-
+    maplist(damageMultiplier(MoveType), TargetType, X),
+    foldl(product, X, 1.0, Z).  

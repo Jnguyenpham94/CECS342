@@ -1,6 +1,6 @@
 :- use_module(library(clpfd)).
 
-solve(S, [cage]).
+solve(S, [cage]) :-
     cage(add, target, [X|Y]),
     cage(mult, target, [X|Y]),
     cage(sub, target, [X|Y]),
@@ -33,9 +33,21 @@ solve(S, [cage]).
     % of each list together make a list of 9 different values. Then see if
     % the same is true of the remaining elements of each list.
 
-squares([A,B,C|T1], [D,E,F|T2], [G,H,I|T3]) :-
-    all_different([A,B,C,D,E,F,G,H,I]),
-    squares(T1, T2, T3).
+    squares([A,B,C|T1], [D,E,F|T2], [G,H,I|T3]) :-
+        all_different([A,B,C,D,E,F,G,H,I]),
+        squares(T1, T2, T3).
 
+    check_cage(S, cage) :-
+        check_constraint(S, cage(add, Value, Cells)),
+        check_constraint(S, cage(mult, Value, Cells)),
+        check_constraint(S, cage(sub, Value, Cells)),
+        check_constraint(S, cage(div, Value, Cells)),
+        check_constraint(S, cage(id, Value, Cells)).
+    
+    cell_values(Cells, S, Values).
 
-check_cage(S, cage).
+    add_to(X, Y, Z) :-
+        Z #= X + Y.
+
+    mults_to(X, Y, Z) :-
+        Z #= X * Y.

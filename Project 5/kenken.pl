@@ -23,7 +23,7 @@ get_cell(S, [I,J], Val) :-
 
 cell_values(Cells, S, Values).
 
-target(Y).
+% target(Y).
 
 cage(add, target, [Rows,Cols]).
 cage(mult, target, [Rows,Cols]).
@@ -31,7 +31,7 @@ cage(sub, target, [Rows,Cols]).
 cage(div, target, [Rows,Cols]).
 cage(id, target, [Rows,Cols]).
 
-solve(S, cage) :-
+solve(S, Cages) :-
     cage(operator(X), target(Y), [Rows,Cols]),
     %cage(add ; mult ;  sub ; div ; id, target, [X|Y]),
     
@@ -72,7 +72,7 @@ solve(S, cage) :-
         check_constraint(S, cage(div, Value, Cells)),
         check_constraint(S, cage(id, Value, Cells)).
 
-%potential result
+% potential result
 /*
 [_,_,_,3,5,4],
 [_,_,_,_,_,6],

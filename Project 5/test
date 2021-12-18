@@ -1,0 +1,13 @@
+color(R, G, B).
+hasComponent(X, C) :-
+    memberchk(X, C). 
+
+brighten(S, C, B) :-
+    %C is color(R, G, B),
+    B is S * C,
+    brighten(S, C, B).
+
+scalarMult(_,[],[]).
+scalarMult(N,[InHead|InTail],[OutHead|OutTail]) :-
+    OutHead is N * InHead,
+    scalarMult(N,InTail,OutTail).
